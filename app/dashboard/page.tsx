@@ -1,14 +1,10 @@
 // "use client"
 
-import { Button } from '@mui/material'
 import AcUnitIcon from '@mui/icons-material/AcUnit'
+import { Button } from '@mui/material'
 import Styles from './styles'
 
-type Props = {}
-
-export default function Page({}: Props) {
-	const a = 1
-
+export default function Page() {
 	return (
 		<div>
 			<Styles.Title>

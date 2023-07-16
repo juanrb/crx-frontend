@@ -1,5 +1,7 @@
 {
-  "extends": [],
-  "plugins": [],
-  "rules": {}
+	"extends": ["next/core-web-vitals", "eslint:all", "prettier"],
+	"plugins": [],
+	"rules": {
+		"one-var": "off"
+	}
 }
