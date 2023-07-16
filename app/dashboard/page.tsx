@@ -1,5 +1,3 @@
-// "use client"
-
 import AcUnitIcon from '@mui/icons-material/AcUnit'
 import { Button } from '@mui/material'
 import Styles from './styles'
