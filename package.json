@@ -15,6 +15,7 @@
     "@mui/lab": "^5.0.0-alpha.136",
     "@mui/material": "^5.14.0",
     "@tabler/icons-react": "^2.25.0",
+    "@tanstack/react-query-next-experimental": "^5.0.0-alpha.80",
     "apexcharts": "^3.41.0",
     "lodash": "^4.17.21",
     "next": "13.4.10",
