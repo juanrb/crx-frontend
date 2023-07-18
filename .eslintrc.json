@@ -2,6 +2,8 @@
 	"extends": ["next/core-web-vitals", "eslint:all", "prettier"],
 	"plugins": [],
 	"rules": {
-		"one-var": "off"
+		"max-lines-per-function": ["error", 80],
+		"one-var": "off",
+		"no-ternary": "off"
 	}
 }

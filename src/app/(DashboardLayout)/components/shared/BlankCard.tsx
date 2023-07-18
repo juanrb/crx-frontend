@@ -1,21 +1,21 @@
-import { Card } from "@mui/material";
+import { Card } from '@mui/material'
+import React from 'react'
 
 type Props = {
-  className?: string;
-  children: JSX.Element | JSX.Element[];
-};
+	className?: string
+	children: React.JSX.Element | React.JSX.Element[]
+}
 
-const BlankCard = ({ children, className }: Props) => {
-  return (
-    <Card
-      sx={{ p: 0, position: "relative" }}
-      className={className}
-      elevation={9}
-      variant={undefined}
-    >
-      {children}
-    </Card>
-  );
-};
+const BlankCard = ({ children, className }: Props) => (
+	<Card
+		sx={{ p: 0, position: 'relative' }}
+		className={className}
+		elevation={9}
+		// eslint-disable-next-line no-undefined
+		variant={undefined}
+	>
+		{children}
+	</Card>
+)
 
-export default BlankCard;
+export default BlankCard
