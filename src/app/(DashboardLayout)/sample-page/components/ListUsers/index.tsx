@@ -1,26 +1,9 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
-
-type User = {
-	id: number
-	name: string
-	email: string
-}
-
-const getUsers = async () =>
-	(await fetch('https://jsonplaceholder.typicode.com/users').then((res) =>
-		res.json()
-	)) as User[]
+import { useUsers } from '@/app/hooks/api/query/useUsers'
 
 export default function ListUsers() {
-	const STALE = 5000
-	const { data, isLoading, isFetching, error } = useQuery<User[]>({
-		queryFn: () => getUsers(),
-		queryKey: ['hydrate-users'],
-		staleTime: STALE,
-		suspense: true,
-	})
+	const { data, isLoading, isFetching, error } = useUsers()
 
 	return (
 		<>
