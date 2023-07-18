@@ -1,4 +1,4 @@
-import { DEFAULT_REACT_QUERY_STALE_TIME } from '@/app/constants'
+import { DEFAULT_REACT_QUERY_STALE_TIME } from '@/app/constants/api'
 import { User } from '@/app/api/types'
 import { useQuery } from '@tanstack/react-query'
 

@@ -14,12 +14,12 @@ const MainWrapper = styled('div')(() => ({
 }))
 
 const PageWrapper = styled('div')(() => ({
+	backgroundColor: 'transparent',
 	display: 'flex',
+	flexDirection: 'column',
 	flexGrow: 1,
 	paddingBottom: '60px',
-	flexDirection: 'column',
 	zIndex: 1,
-	backgroundColor: 'transparent',
 }))
 
 interface Props {
@@ -57,8 +57,8 @@ export default function RootLayout({
 					{/* ------------------------------------------- */}
 					<Container
 						sx={{
-							paddingTop: '20px',
 							maxWidth: '1200px',
+							paddingTop: '20px',
 						}}
 					>
 						{/* ------------------------------------------- */}

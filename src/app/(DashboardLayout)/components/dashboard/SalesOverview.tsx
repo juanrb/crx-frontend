@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 import { MenuItem, Select } from '@mui/material'
 
 import DashboardCard from '@/app/(DashboardLayout)/components/shared/DashboardCard'
@@ -24,37 +25,17 @@ const SalesOverview = () => {
 	// Chart
 	const optionscolumnchart: any = {
 		chart: {
-			type: 'bar',
 			fontFamily: "'Plus Jakarta Sans', sans-serif;",
 			foreColor: '#adb0bb',
+			height: 370,
 			toolbar: {
 				show: true,
 			},
-			height: 370,
+			type: 'bar',
 		},
 		colors: [primary, secondary],
-		plotOptions: {
-			bar: {
-				horizontal: false,
-				barHeight: '60%',
-				columnWidth: '42%',
-				borderRadius: [6],
-				borderRadiusApplication: 'end',
-				borderRadiusWhenStacked: 'all',
-			},
-		},
-
-		stroke: {
-			show: true,
-			width: 5,
-			lineCap: 'butt',
-			colors: ['transparent'],
-		},
 		dataLabels: {
 			enabled: false,
-		},
-		legend: {
-			show: false,
 		},
 		grid: {
 			borderColor: 'rgba(0,0,0,0.1)',
@@ -65,10 +46,33 @@ const SalesOverview = () => {
 				},
 			},
 		},
-		yaxis: {
-			tickAmount: 4,
+		legend: {
+			show: false,
+		},
+		plotOptions: {
+			bar: {
+				barHeight: '60%',
+				borderRadius: [6],
+				borderRadiusApplication: 'end',
+				borderRadiusWhenStacked: 'all',
+				columnWidth: '42%',
+				horizontal: false,
+			},
+		},
+		stroke: {
+			colors: ['transparent'],
+			lineCap: 'butt',
+			show: true,
+			width: 5,
+		},
+		tooltip: {
+			fillSeriesColor: false,
+			theme: theme.palette.mode === 'dark' ? 'dark' : 'light',
 		},
 		xaxis: {
+			axisBorder: {
+				show: false,
+			},
 			categories: [
 				'16/08',
 				'17/08',
@@ -79,23 +83,19 @@ const SalesOverview = () => {
 				'22/08',
 				'23/08',
 			],
-			axisBorder: {
-				show: false,
-			},
 		},
-		tooltip: {
-			theme: theme.palette.mode === 'dark' ? 'dark' : 'light',
-			fillSeriesColor: false,
+		yaxis: {
+			tickAmount: 4,
 		},
 	}
 	const seriescolumnchart: any = [
 		{
-			name: 'Eanings this month',
 			data: [355, 390, 300, 350, 390, 180, 355, 390],
+			name: 'Eanings this month',
 		},
 		{
-			name: 'Expense this month',
 			data: [280, 250, 325, 215, 250, 310, 280, 250],
+			name: 'Expense this month',
 		},
 	]
 

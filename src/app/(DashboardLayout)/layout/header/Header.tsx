@@ -15,6 +15,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 interface ItemType {
+	// eslint-disable-next-line no-unused-vars
 	toggleMobileSidebar: (event: React.MouseEvent<HTMLElement>) => void
 }
 
@@ -25,17 +26,17 @@ const Header = ({ toggleMobileSidebar }: ItemType) => {
 	 */
 
 	const AppBarStyled = styled(AppBar)(({ theme }) => ({
-		boxShadow: 'none',
-		background: theme.palette.background.paper,
-		justifyContent: 'center',
-		backdropFilter: 'blur(4px)',
 		[theme.breakpoints.up('lg')]: {
 			minHeight: '70px',
 		},
+		backdropFilter: 'blur(4px)',
+		background: theme.palette.background.paper,
+		boxShadow: 'none',
+		justifyContent: 'center',
 	}))
 	const ToolbarStyled = styled(Toolbar)(({ theme }) => ({
-		width: '100%',
 		color: theme.palette.text.secondary,
+		width: '100%',
 	}))
 
 	return (

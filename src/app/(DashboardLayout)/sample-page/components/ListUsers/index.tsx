@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client'
 
 import { useUsers } from '@/app/hooks/api/query/useUsers'
@@ -16,8 +17,8 @@ export default function ListUsers() {
 				<div
 					style={{
 						display: 'grid',
-						gridTemplateColumns: '1fr 1fr 1fr 1fr',
 						gap: 20,
+						gridTemplateColumns: '1fr 1fr 1fr 1fr',
 					}}
 				>
 					{data?.map((user) => (
@@ -28,7 +29,10 @@ export default function ListUsers() {
 							<img
 								src={`https://robohash.org/${user.id}?set=set2&size=180x180`}
 								alt={user.name}
-								style={{ width: 180, height: 180 }}
+								style={{
+									height: 180,
+									width: 180,
+								}}
 							/>
 							<h3>{user.name}</h3>
 						</div>
