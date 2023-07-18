@@ -26,12 +26,8 @@ interface Props {
 	children: React.ReactNode
 }
 
-export default function RootLayout({
-	children,
-}: {
-	children: React.ReactNode
-}) {
-	const [isSidebarOpen, setSidebarOpen] = useState(true)
+export default function RootLayout({ children }: Props) {
+	const [isSidebarOpen] = useState(true)
 	const [isMobileSidebarOpen, setMobileSidebarOpen] = useState(false)
 	return (
 		<Providers>

@@ -4,6 +4,7 @@ import {
 	IconLayoutDashboard,
 	IconLogin,
 	IconMoodHappy,
+	IconSettings,
 	IconTypography,
 	IconUserPlus,
 } from '@tabler/icons-react'
@@ -69,6 +70,12 @@ const Menuitems = [
 		icon: IconAperture,
 		id: uniqueId(),
 		title: 'Sample Page',
+	},
+	{
+		href: '/settings',
+		icon: IconSettings,
+		id: uniqueId(),
+		title: 'Settings',
 	},
 ]
 

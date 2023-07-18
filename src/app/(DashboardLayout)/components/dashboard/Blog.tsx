@@ -61,14 +61,14 @@ const Blog = () => (
 						<Image
 							src={product.photo}
 							alt="img"
-							style={{ width: '100%', height: '250px' }}
+							style={{ height: '250px', width: '100%' }}
 						/>
 					</Typography>
 					<Tooltip title="Add To Cart">
 						<Fab
 							size="small"
 							color="primary"
-							sx={{ bottom: '75px', right: '15px', position: 'absolute' }}
+							sx={{ bottom: '75px', position: 'absolute', right: '15px' }}
 						>
 							<IconBasket size="16" />
 						</Fab>
