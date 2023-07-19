@@ -5,8 +5,8 @@ import {
 	IconLogin,
 	IconMoodHappy,
 	IconSettings,
-	IconTypography,
 	IconUserPlus,
+	IconUsers,
 } from '@tabler/icons-react'
 
 import { uniqueId } from 'lodash'
@@ -25,52 +25,58 @@ const Menuitems = [
 	},
 	{
 		navlabel: true,
-		subheader: 'Utilities',
+		subheader: 'Team',
 	},
 	{
-		href: '/utilities/typography',
-		icon: IconTypography,
+		href: '/users',
+		icon: IconUsers,
 		id: uniqueId(),
-		title: 'Typography',
+		title: 'Users',
 	},
-	{
-		href: '/utilities/shadow',
-		icon: IconCopy,
-		id: uniqueId(),
-		title: 'Shadow',
-	},
-	{
-		navlabel: true,
-		subheader: 'Auth',
-	},
-	{
-		href: '/authentication/login',
-		icon: IconLogin,
-		id: uniqueId(),
-		title: 'Login',
-	},
-	{
-		href: '/authentication/register',
-		icon: IconUserPlus,
-		id: uniqueId(),
-		title: 'Register',
-	},
+	/*
+	 * 	{
+	 * 	href: '/utilities/shadow',
+	 * 	icon: IconCopy,
+	 * 	id: uniqueId(),
+	 * 	title: 'Shadow',
+	 * 	},
+	 */
+	/*
+	 * {
+	 * navlabel: true,
+	 * subheader: 'Auth',
+	 * },
+	 * {
+	 * href: '/authentication/login',
+	 * icon: IconLogin,
+	 * id: uniqueId(),
+	 * title: 'Login',
+	 * },
+	 * {
+	 * href: '/authentication/register',
+	 * icon: IconUserPlus,
+	 * id: uniqueId(),
+	 * title: 'Register',
+	 * },
+	 */
 	{
 		navlabel: true,
 		subheader: 'Extra',
 	},
-	{
-		href: '/icons',
-		icon: IconMoodHappy,
-		id: uniqueId(),
-		title: 'Icons',
-	},
-	{
-		href: '/sample-page',
-		icon: IconAperture,
-		id: uniqueId(),
-		title: 'Sample Page',
-	},
+	/*
+	 *{
+	 *	href: '/icons',
+	 *	icon: IconMoodHappy,
+	 *	id: uniqueId(),
+	 *	title: 'Icons',
+	 *},
+	 *{
+	 *	href: '/sample-page',
+	 *	icon: IconAperture,
+	 *	id: uniqueId(),
+	 *	title: 'Sample Page',
+	 *},
+	 */
 	{
 		href: '/settings',
 		icon: IconSettings,
