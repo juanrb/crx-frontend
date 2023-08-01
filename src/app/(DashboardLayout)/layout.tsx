@@ -1,11 +1,11 @@
 'use client'
 
-import { Box, Container, styled } from '@mui/material'
 import React, { useState } from 'react'
+import { Box, Container, styled } from '@mui/material'
 
 import Header from '@/app/(DashboardLayout)/layout/header/Header'
-import Providers from '@/utils/api/provider'
 import Sidebar from '@/app/(DashboardLayout)/layout/sidebar/Sidebar'
+import Providers from '@/utils/api/provider'
 
 const MainWrapper = styled('div')(() => ({
 	display: 'flex',
