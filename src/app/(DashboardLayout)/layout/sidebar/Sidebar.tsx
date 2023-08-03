@@ -1,9 +1,9 @@
+import React from 'react'
 import { Box, Drawer, useMediaQuery } from '@mui/material'
 
 import Logo from '../shared/logo/Logo'
-import React from 'react'
+
 import SidebarItems from './SidebarItems'
-import { Upgrade } from './Updrade'
 
 interface ItemType {
 	isMobileSidebarOpen: boolean
@@ -56,7 +56,6 @@ const Sidebar = ({
 						<Box>
 							{/* Sidebar Items */}
 							<SidebarItems />
-							{/* <Upgrade /> */}
 						</Box>
 					</Box>
 				</Drawer>
@@ -83,7 +82,6 @@ const Sidebar = ({
 			</Box>
 			{/* Sidebar For Mobile */}
 			<SidebarItems />
-			<Upgrade />
 		</Drawer>
 	)
 }

@@ -1,18 +1,18 @@
+import React from 'react'
 import {
 	AppBar,
 	Badge,
 	Box,
 	IconButton,
 	Stack,
-	Toolbar,
 	styled,
+	Toolbar,
 } from '@mui/material'
 import { IconBellRinging, IconMenu } from '@tabler/icons-react'
+import PropTypes from 'prop-types'
 
 // Components
 import Profile from './Profile'
-import PropTypes from 'prop-types'
-import React from 'react'
 
 interface ItemType {
 	// eslint-disable-next-line no-unused-vars
@@ -69,9 +69,6 @@ const Header = ({ toggleMobileSidebar }: ItemType) => {
 				</IconButton>
 				<Box flexGrow={1} />
 				<Stack spacing={1} direction="row" alignItems="center">
-					{/* <Button variant="contained" disableElevation color="primary"  target="_blank" href="https://adminmart.com/product/modernize-next-js-admin-dashboard">
-            Upgrade to Pro
-          </Button> */}
 					<Profile />
 				</Stack>
 			</ToolbarStyled>
