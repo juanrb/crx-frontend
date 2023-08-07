@@ -23,7 +23,11 @@ import Notifications from './Notification'
 import Profile from './Profile'
 import Search from './Search'
 
-const Header = () => {
+interface Props {
+	enableNavigation?: boolean
+}
+
+const Header = ({ enableNavigation = true }: Props) => {
 	const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up('lg'))
 	const lgDown = useMediaQuery((theme: any) => theme.breakpoints.down('lg'))
 
@@ -67,11 +71,7 @@ const Header = () => {
 				{/* Search Dropdown */}
 				{/* ------------------------------------------- */}
 				<Search />
-				{lgUp ? (
-					<>
-						<Navigation />
-					</>
-				) : null}
+				{lgUp ? <>{enableNavigation && <Navigation />}</> : null}
 
 				<Box flexGrow={1} />
 				<Stack spacing={1} direction="row" alignItems="center">

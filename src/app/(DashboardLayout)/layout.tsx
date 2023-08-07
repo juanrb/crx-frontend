@@ -1,11 +1,17 @@
 'use client'
-
 import React, { useState } from 'react'
-import { Box, Container, styled } from '@mui/material'
+import { Box, Container, styled, useTheme } from '@mui/material'
 
-import Header from '@/app/layout/header/Header'
-import Sidebar from '@/app/layout/sidebar/Sidebar'
+import { useSelector } from '@/store/hooks'
+import { AppState } from '@/store/store'
 import Providers from '@/utils/api/provider'
+
+import Header from '../layout/header/Header'
+import Customizer from '../layout/shared/customizer/Customizer'
+import Sidebar from '../layout/sidebar/Sidebar'
+
+// import HorizontalHeader from './layout/horizontal/header/Header'
+// import Navigation from './layout/horizontal/navbar/Navigation'
 
 const MainWrapper = styled('div')(() => ({
 	display: 'flex',
@@ -14,57 +20,76 @@ const MainWrapper = styled('div')(() => ({
 }))
 
 const PageWrapper = styled('div')(() => ({
-	backgroundColor: 'transparent',
 	display: 'flex',
-	flexDirection: 'column',
 	flexGrow: 1,
 	paddingBottom: '60px',
+	flexDirection: 'column',
 	zIndex: 1,
+	backgroundColor: 'transparent',
 }))
 
 interface Props {
 	children: React.ReactNode
 }
 
-export default function RootLayout({ children }: Props) {
-	const [isSidebarOpen] = useState(true)
+export default function RootLayout({
+	children,
+}: {
+	children: React.ReactNode
+}) {
+	const [isSidebarOpen, setSidebarOpen] = useState(true)
 	const [isMobileSidebarOpen, setMobileSidebarOpen] = useState(false)
+	const customizer = useSelector((state: AppState) => state.customizer)
+	const theme = useTheme()
+
 	return (
 		<Providers>
-			<MainWrapper className="mainwrapper">
+			<MainWrapper>
 				{/* ------------------------------------------- */}
 				{/* Sidebar */}
 				{/* ------------------------------------------- */}
-				<Sidebar
-					isSidebarOpen={isSidebarOpen}
-					isMobileSidebarOpen={isMobileSidebarOpen}
-					onSidebarClose={() => setMobileSidebarOpen(false)}
-				/>
+				<Sidebar />
 				{/* ------------------------------------------- */}
 				{/* Main Wrapper */}
 				{/* ------------------------------------------- */}
-				<PageWrapper className="page-wrapper">
+				<PageWrapper
+					className="page-wrapper"
+					sx={{
+						...(customizer.isCollapse && {
+							[theme.breakpoints.up('lg')]: {
+								ml: `${customizer.MiniSidebarWidth}px`,
+							},
+						}),
+					}}
+				>
 					{/* ------------------------------------------- */}
 					{/* Header */}
 					{/* ------------------------------------------- */}
-					<Header toggleMobileSidebar={() => setMobileSidebarOpen(true)} />
-					{/* ------------------------------------------- */}
+					{/* {customizer.isHorizontal ? <HorizontalHeader /> : <Header />} */}
+					<Header enableNavigation={false} />
 					{/* PageContent */}
-					{/* ------------------------------------------- */}
+					{/* {customizer.isHorizontal ? <Navigation /> : ''} */}
 					<Container
 						sx={{
-							maxWidth: '1200px',
-							paddingTop: '20px',
+							maxWidth:
+								customizer.isLayout === 'boxed' ? 'lg' : '100%!important',
 						}}
 					>
 						{/* ------------------------------------------- */}
-						{/* Page Route */}
+						{/* PageContent */}
 						{/* ------------------------------------------- */}
-						<Box sx={{ minHeight: 'calc(100vh - 170px)' }}>{children}</Box>
+
+						<Box sx={{ minHeight: 'calc(100vh - 170px)' }}>
+							{/* <Outlet /> */}
+							{children}
+							{/* <Index /> */}
+						</Box>
+
 						{/* ------------------------------------------- */}
 						{/* End Page */}
 						{/* ------------------------------------------- */}
 					</Container>
+					<Customizer />
 				</PageWrapper>
 			</MainWrapper>
 		</Providers>

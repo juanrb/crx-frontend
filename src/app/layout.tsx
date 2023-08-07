@@ -9,9 +9,9 @@ import { ThemeProvider } from '@mui/material/styles'
 import NextTopLoader from 'nextjs-toploader'
 
 // import RTL from '@/app/(DashboardLayout)/layout/shared/customizer/RTL'
-import { useSelector } from '@/store/hooks'
+// import { useSelector } from '@/store/hooks'
 import { store } from '@/store/store'
-import { AppState } from '@/store/store'
+// import { AppState } from '@/store/store'
 import { NextAppDirEmotionCacheProvider } from '@/utils/theme/EmotionCache'
 import { ThemeSettings } from '@/utils/theme/Theme'
 
@@ -25,7 +25,7 @@ import '@/utils/i18n'
 export const MyApp = ({ children }: { children: React.ReactNode }) => {
 	const theme = ThemeSettings()
 
-	const customizer = useSelector((state: AppState) => state.customizer)
+	// const customizer = useSelector((state: AppState) => state.customizer)
 
 	return (
 		<>
