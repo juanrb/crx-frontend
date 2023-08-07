@@ -1,52 +1,53 @@
-'use client';
-import { Paper, Box, Grid } from '@mui/material';
-import PageContainer from '@/app/(DashboardLayout)/components/container/PageContainer';
-import DashboardCard from '@/app/(DashboardLayout)/components/shared/DashboardCard';
-import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+/* eslint-disable no-magic-numbers */
+'use client'
 
+import { Box, Grid, Paper } from '@mui/material'
+import { ThemeProvider, createTheme, styled } from '@mui/material/styles'
+
+import DashboardCard from '@/app/(DashboardLayout)/components/shared/DashboardCard'
+import PageContainer from '@/app/(DashboardLayout)/components/container/PageContainer'
 
 const Item = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body1,
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-  height: 60,
-  lineHeight: '60px',
-}));
+	...theme.typography.body1,
+	color: theme.palette.text.secondary,
+	height: 60,
+	lineHeight: '60px',
+	textAlign: 'center',
+}))
 
-const darkTheme = createTheme({ palette: { mode: 'dark' } });
-const lightTheme = createTheme({ palette: { mode: 'light' } });
+const darkTheme = createTheme({ palette: { mode: 'dark' } })
+const lightTheme = createTheme({ palette: { mode: 'light' } })
 
-const Shadow = () => {
-  return (
-    <PageContainer title="Shadow" description="this is Shadow">
+const Shadow = () => (
+	<PageContainer title="Shadow" description="this is Shadow">
+		<DashboardCard title="Shadow">
+			<Grid container spacing={2}>
+				{[lightTheme, darkTheme].map((theme, index) => (
+					<Grid item xs={6} key={index}>
+						<ThemeProvider theme={theme}>
+							<Box
+								sx={{
+									bgcolor: 'background.default',
+									display: 'grid',
+									gap: 2,
+									gridTemplateColumns: {
+										md: '1fr 1fr',
+									},
+									p: 2,
+								}}
+							>
+								{[0, 1, 2, 3, 4, 6, 8, 12, 16, 24].map((elevation) => (
+									<Item key={elevation} elevation={elevation}>
+										{`elevation=${elevation}`}
+									</Item>
+								))}
+							</Box>
+						</ThemeProvider>
+					</Grid>
+				))}
+			</Grid>
+		</DashboardCard>
+	</PageContainer>
+)
 
-      <DashboardCard title="Shadow">
-        <Grid container spacing={2}>
-          {[lightTheme, darkTheme].map((theme, index) => (
-            <Grid item xs={6} key={index}>
-              <ThemeProvider theme={theme}>
-                <Box
-                  sx={{
-                    p: 2,
-                    bgcolor: 'background.default',
-                    display: 'grid',
-                    gridTemplateColumns: { md: '1fr 1fr' },
-                    gap: 2,
-                  }}
-                >
-                  {[0, 1, 2, 3, 4, 6, 8, 12, 16, 24].map((elevation) => (
-                    <Item key={elevation} elevation={elevation}>
-                      {`elevation=${elevation}`}
-                    </Item>
-                  ))}
-                </Box>
-              </ThemeProvider>
-            </Grid>
-          ))}
-        </Grid>
-      </DashboardCard>
-    </PageContainer>
-  );
-};
-
-export default Shadow;
+export default Shadow

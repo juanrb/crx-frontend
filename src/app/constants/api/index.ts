@@ -1,0 +1,2 @@
+export const DEFAULT_REACT_QUERY_STALE_TIME = Infinity
+export const DEFAULT_REACT_QUERY_CACHE_TIME = 0
