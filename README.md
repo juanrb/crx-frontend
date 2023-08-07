@@ -36,4 +36,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## Run backend:
 sudo docker build -t frontend .
-sudo docker run -it -p 3000:3000 frontend
+sudo docker run --net legaltech --name fronted -it -p 3000:3000 frontend
