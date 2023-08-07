@@ -3,8 +3,8 @@
 import React, { useState } from 'react'
 import { Box, Container, styled } from '@mui/material'
 
-import Header from '@/app/(DashboardLayout)/layout/header/Header'
-import Sidebar from '@/app/(DashboardLayout)/layout/sidebar/Sidebar'
+import Header from '@/app/layout/header/Header'
+import Sidebar from '@/app/layout/sidebar/Sidebar'
 import Providers from '@/utils/api/provider'
 
 const MainWrapper = styled('div')(() => ({

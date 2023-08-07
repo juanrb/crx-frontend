@@ -2,7 +2,7 @@
 
 import { Box, Grid } from '@mui/material'
 
-import PageContainer from '@/app/(DashboardLayout)/components/container/PageContainer'
+import PageContainer from '@/app/components/container/PageContainer'
 
 const Dashboard = () => (
 	<PageContainer title="Dashboard" description="dashboard homepage">

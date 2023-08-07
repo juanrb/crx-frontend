@@ -2,8 +2,8 @@
 
 import React, { Suspense } from 'react'
 
-import PageContainer from '../components/container/PageContainer'
-import DashboardCard from '../components/shared/DashboardCard'
+import PageContainer from '@/app/components/container/PageContainer'
+import DashboardCard from '@/app/components/shared/DashboardCard'
 
 export default function Users() {
 	return (

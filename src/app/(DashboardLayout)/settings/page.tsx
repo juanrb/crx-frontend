@@ -3,11 +3,10 @@
 import React, { Suspense } from 'react'
 import { Switch } from '@mui/material'
 
+import PageContainer from '@/app/components/container/PageContainer'
+import DashboardCard from '@/app/components/shared/DashboardCard'
 import { setDarkMode } from '@/store/customizer/CustomizerSlice'
 import { useDispatch } from '@/store/hooks'
-
-import PageContainer from '../components/container/PageContainer'
-import DashboardCard from '../components/shared/DashboardCard'
 
 export default function Settings() {
 	const dispatch = useDispatch()
@@ -19,7 +18,7 @@ export default function Settings() {
 						<p style={{ textAlign: 'center' }}>loading... on initial request</p>
 					}
 				>
-					Some content
+					Dark mode
 					<Switch onClick={() => dispatch(setDarkMode('dark'))} />
 				</Suspense>
 			</DashboardCard>
