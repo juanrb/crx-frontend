@@ -16,7 +16,6 @@ import {
 import { useDispatch, useSelector } from '@/store/hooks'
 import { AppState } from '@/store/store'
 
-import Cart from './Cart'
 import Language from './Language'
 import MobileRightSidebar from './MobileRightSidebar'
 import Navigation from './Navigation'
