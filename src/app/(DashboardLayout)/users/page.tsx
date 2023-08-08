@@ -1,31 +1,24 @@
 'use client'
 
-import DashboardCard from '@/app/(DashboardLayout)/components/shared/DashboardCard'
-import ListUsers from './components/ListUsers'
-import PageContainer from '@/app/(DashboardLayout)/components/container/PageContainer'
-import { Suspense } from 'react'
-import { useAddPetMutation, useGetInventoryQuery, useGetUserByNameQuery } from '@/api/api-client/Query'
-import { setBaseUrl } from '@/api/api-client'
+import React, { Suspense } from 'react'
+import { useTranslation } from 'react-i18next'
 
-const SamplePage = () => {
-	setBaseUrl('https://petstore.swagger.io/v2')
-	const { data, isLoading, isFetching, error } = useGetInventoryQuery()
+import PageContainer from '@/app/components/container/PageContainer'
+import DashboardCard from '@/app/components/shared/DashboardCard'
 
-	console.log(data, 'data')
-
+export default function Users() {
+	const { t } = useTranslation()
 	return (
-	<PageContainer title="Sample Page" description="this is Sample page">
-		<DashboardCard title="Sample Page">
-			<Suspense
-				fallback={
-					<p style={{ textAlign: 'center' }}>loading... on initial request</p>
-				}
-			>
-				<ListUsers />
-			</Suspense>
-		</DashboardCard>
-	</PageContainer>
-)
+		<PageContainer title={t('Users')} description={t('users.title')}>
+			<DashboardCard title={t('Users')}>
+				<Suspense
+					fallback={
+						<p style={{ textAlign: 'center' }}>loading... on initial request</p>
+					}
+				>
+					Some content
+				</Suspense>
+			</DashboardCard>
+		</PageContainer>
+	)
 }
-
-export default SamplePage
