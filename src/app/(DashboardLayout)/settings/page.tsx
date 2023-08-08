@@ -1,6 +1,7 @@
 'use client'
 
 import React, { Suspense } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Switch } from '@mui/material'
 
 import PageContainer from '@/app/components/container/PageContainer'
@@ -10,8 +11,9 @@ import { useDispatch } from '@/store/hooks'
 
 export default function Settings() {
 	const dispatch = useDispatch()
+	const { t } = useTranslation()
 	return (
-		<PageContainer title="Settings" description="Settings page">
+		<PageContainer title={t('Settings')} description={t('settings.title')}>
 			<DashboardCard title="Settings">
 				<Suspense
 					fallback={

@@ -1,9 +1,8 @@
 {
-    "Starter": "Starter",
-    "Menu Level": "Menu Level",
-    "Disabled": "Disabled",
-    "SubCaption": "SubCaption",
-    "Chip": "Chip",
-    "Outlined": "Outlined",
-    "External Link": "External Link"
+    "Home": "Home",
+    "Users": "Users",
+    "Settings": "Settings",
+    "home.title": "Home title",
+    "users.title": "Users title",
+    "settings.title": "Settings title"
 }
