@@ -14,7 +14,7 @@ export default function Settings() {
 	const { t } = useTranslation()
 	return (
 		<PageContainer title={t('Settings')} description={t('settings.title')}>
-			<DashboardCard title="Settings">
+			<DashboardCard title={t('Settings')}>
 				<Suspense
 					fallback={
 						<p style={{ textAlign: 'center' }}>loading... on initial request</p>
