@@ -14,12 +14,17 @@ interface MenuitemsType {
 	variant?: string
 	external?: boolean
 }
-import { IconHome, IconSettings, IconUsers } from '@tabler/icons-react'
+import {
+	IconHome,
+	IconLayout,
+	IconSettings,
+	IconUsers,
+} from '@tabler/icons-react'
 
 const Menuitems: MenuitemsType[] = [
 	{
 		navlabel: true,
-		subheader: 'Dashboard',
+		subheader: 'Tools',
 	},
 
 	{
@@ -27,6 +32,12 @@ const Menuitems: MenuitemsType[] = [
 		title: 'Home',
 		icon: IconHome,
 		href: '/',
+	},
+	{
+		id: uniqueId(),
+		title: 'ScrappyDoo',
+		icon: IconLayout,
+		href: '/scrappy-doo',
 	},
 	{
 		id: uniqueId(),

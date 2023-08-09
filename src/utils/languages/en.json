@@ -1,8 +1,16 @@
 {
     "Home": "Home",
+    "ScrappyDoo": "ScrappyDoo",
     "Users": "Users",
     "Settings": "Settings",
     "home.title": "Home title",
+    "scrappyDoo.title": "ScrappyDoo title",
+    "scrappyDoo.table.title": "Bots",
+    "scrappyDoo.table.head.label": "Label",
+    "scrappyDoo.table.head.city": "City",
+    "scrappyDoo.table.head.type": "Type",
+    "scrappyDoo.table.head.range": "Range",
+    "scrappyDoo.table.head.rooms": "Rooms",
     "users.title": "Users title",
     "settings.title": "Settings title"
 }
