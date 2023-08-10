@@ -29,21 +29,33 @@ import Breadcrumb from '@/app/layout/shared/breadcrumb/Breadcrumb'
 function createData(
 	imgsrc?: string,
 	pname?: string,
-	customer?: string,
-	inventory?: boolean,
-	price?: number,
-	items?: string
+	city?: string,
+	type?: string,
+	minPrice?: number,
+	maxPrice?: number,
+	rooms?: number
 ) {
 	return {
 		imgsrc,
 		pname,
-		customer,
-		inventory,
-		price,
-		items,
+		city,
+		type,
+		minPrice,
+		maxPrice,
+		rooms,
 		history: [
-			{ date: '2021-02-05', customerId: '15202410', price: 250, amount: 3 },
-			{ date: '2021-02-02', customerId: 'Anonymous', price: 600, amount: 1 },
+			{
+				date: '2021-02-05',
+				scrapped: 5520,
+				avgPrice: '470K',
+				matches: 225,
+			},
+			{
+				date: '2021-02-02',
+				scrapped: 2410,
+				avgPrice: '500K',
+				matches: 112,
+			},
 		],
 	}
 }
@@ -83,39 +95,46 @@ function Row(props: { row: ReturnType<typeof createData> }) {
 				</TableCell>
 				<TableCell>
 					<Typography color="textSecondary" variant="h6">
-						{row.customer}
+						{row.city}
 					</Typography>
 				</TableCell>
 				<TableCell>
 					<Chip
 						size="small"
-						label={row.inventory ? 'In Stock' : 'Out of Stock'}
-						color={row.inventory ? 'success' : 'error'}
+						label={row.type}
+						color="success"
 						sx={{ borderRadius: '6px' }}
 					/>
 				</TableCell>
 				<TableCell>
 					<Typography color="textSecondary" variant="h6" fontWeight="400">
-						${row.price}
+						${row.minPrice} - ${row.maxPrice}
 					</Typography>
 				</TableCell>
 				<TableCell>
 					<Typography color="textSecondary" fontWeight="400">
-						{row.items}
+						{row.rooms}
 					</Typography>
 				</TableCell>
 			</TableRow>
 			<TableRow>
-				<TableCell sx={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+				<TableCell
+					sx={{
+						paddingBottom: 0,
+						paddingTop: 0,
+					}}
+					colSpan={6}
+				>
 					<Collapse in={open} timeout="auto" unmountOnExit>
 						<Box margin={1}>
 							<Typography
 								gutterBottom
-								variant="h5"
+								variant="h6"
 								sx={{
 									mt: 2,
-									backgroundColor: (theme) => theme.palette.grey.A200,
+									fontSize: '0.8rem',
 									p: '5px 15px',
+									textTransform: 'uppercase',
 									color: (theme) =>
 										`${
 											theme.palette.mode === 'dark'
@@ -124,7 +143,7 @@ function Row(props: { row: ReturnType<typeof createData> }) {
 										}`,
 								}}
 							>
-								History
+								Summary
 							</Typography>
 							<Table size="small" aria-label="purchases">
 								<TableHead>
@@ -133,13 +152,13 @@ function Row(props: { row: ReturnType<typeof createData> }) {
 											<Typography variant="h6">Date</Typography>
 										</TableCell>
 										<TableCell>
-											<Typography variant="h6">Customer</Typography>
+											<Typography variant="h6">Scrapped</Typography>
 										</TableCell>
 										<TableCell>
-											<Typography variant="h6">Amount</Typography>
+											<Typography variant="h6">Matches</Typography>
 										</TableCell>
 										<TableCell>
-											<Typography variant="h6">Total price ($)</Typography>
+											<Typography variant="h6">Avg. price (u$d)</Typography>
 										</TableCell>
 									</TableRow>
 								</TableHead>
@@ -153,19 +172,17 @@ function Row(props: { row: ReturnType<typeof createData> }) {
 											</TableCell>
 											<TableCell>
 												<Typography color="textSecondary" fontWeight="400">
-													{historyRow.customerId}
+													{historyRow.scrapped}
 												</Typography>
 											</TableCell>
 											<TableCell>
 												<Typography color="textSecondary" fontWeight="400">
-													{historyRow.amount}
+													{historyRow.matches}
 												</Typography>
 											</TableCell>
 											<TableCell>
 												<Typography fontWeight="600">
-													{Math.round(
-														historyRow.amount * historyRow.price * 100
-													) / 100}
+													{historyRow.avgPrice}
 												</Typography>
 											</TableCell>
 										</TableRow>
@@ -185,33 +202,37 @@ const rows = [
 		'/images/tools/scrappy-doo/bot.jpg',
 		'Depto grande en palermo',
 		'CABA',
-		true,
-		250,
-		'2'
+		'departamento',
+		400,
+		500,
+		2
 	),
 	createData(
 		'/images/tools/scrappy-doo/bot.jpg',
 		'Depto grande en Recoleta',
 		'CABA',
-		false,
-		450,
-		'1'
+		'departamento',
+		400,
+		590,
+		1
 	),
 	createData(
 		'/images/tools/scrappy-doo/bot.jpg',
 		'Depto chico en Palermo',
 		'CABA',
-		false,
-		150,
-		'2'
+		'departamento',
+		450,
+		590,
+		2
 	),
 	createData(
 		'/images/tools/scrappy-doo/bot.jpg',
 		'Local para peluquería',
 		'CABA',
-		true,
-		550,
-		'6'
+		'local',
+		350,
+		590,
+		6
 	),
 ]
 

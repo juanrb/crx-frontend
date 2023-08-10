@@ -89,7 +89,7 @@ export default function RootLayout({
 						{/* End Page */}
 						{/* ------------------------------------------- */}
 					</Container>
-					{/* <Customizer /> */}
+					<Customizer />
 				</PageWrapper>
 			</MainWrapper>
 		</Providers>
