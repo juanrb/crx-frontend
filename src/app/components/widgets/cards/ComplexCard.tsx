@@ -17,8 +17,9 @@ import BlankCard from '../../shared/BlankCard'
 const complexCard = [
 	{
 		avatar: '/images/profile/user-1.jpg',
-		coveravatar: '/images/blog/blog-img1.jpg',
-		title: 'As yen tumbles, gadget-loving Japan goes for secondhand iPhones',
+		coveravatar:
+			'https://http2.mlstatic.com/D_NQ_NP_881799-MLA70906089291_082023-F.webp',
+		title: 'Venta Depto Palermo 3 Amb Con Balcón Todo A Nuevo!',
 		category: 'Social',
 		name: 'Georgeanna Ramero',
 		view: '9,125',
@@ -27,9 +28,9 @@ const complexCard = [
 	},
 	{
 		avatar: '/images/profile/user-2.jpg',
-		coveravatar: '/images/blog/blog-img2.jpg',
-		title:
-			'Intel loses bid to revive antitrust case against patent foe Fortress',
+		coveravatar:
+			'https://http2.mlstatic.com/D_NQ_NP_2X_722040-MLA70906265592_082023-F.webp',
+		title: '2 Ambientes Torre Costantini - Full Amenities',
 		category: 'Gadget',
 		name: 'Georgeanna Ramero',
 		view: '4,150',
@@ -38,8 +39,42 @@ const complexCard = [
 	},
 	{
 		avatar: '/images/profile/user-3.jpg',
-		coveravatar: '/images/blog/blog-img3.jpg',
-		title: 'COVID outbreak deepens as more lockdowns loom in China',
+		coveravatar:
+			'https://http2.mlstatic.com/D_NQ_NP_860410-MLA70906265614_082023-F.webp',
+		title: 'Departamento En Venta',
+		category: 'Health',
+		name: 'Georgeanna Ramero',
+		view: '9,480',
+		comments: '12',
+		time: 'Sat, Dec 17',
+	},
+	{
+		avatar: '/images/profile/user-3.jpg',
+		coveravatar:
+			'https://http2.mlstatic.com/D_NQ_NP_881799-MLA70906089291_082023-F.webp',
+		title: 'Venta Depto Palermo 3 Amb Con Balcón Todo A Nuevo!',
+		category: 'Social',
+		name: 'Georgeanna Ramero',
+		view: '9,125',
+		comments: '3',
+		time: 'Mon, Dec 19',
+	},
+	{
+		avatar: '/images/profile/user-1.jpg',
+		coveravatar:
+			'https://http2.mlstatic.com/D_NQ_NP_2X_743897-MLA70906265602_082023-F.webp',
+		title: '2 Ambientes Torre Costantini - Full Amenities',
+		category: 'Gadget',
+		name: 'Georgeanna Ramero',
+		view: '4,150',
+		comments: '38',
+		time: 'Sun, Dec 18',
+	},
+	{
+		avatar: '/images/profile/user-2.jpg',
+		coveravatar:
+			'https://http2.mlstatic.com/D_NQ_NP_2X_644949-MLA70981642625_082023-F.webp',
+		title: '2 Ambientes 56m2 C/ Balcón A Estrenar !',
 		category: 'Health',
 		name: 'Georgeanna Ramero',
 		view: '9,480',

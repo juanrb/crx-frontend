@@ -47,6 +47,7 @@ interface colors {
 	bgColor: string
 	disp?: string
 }
+// eslint-disable-next-line max-lines-per-function
 const Customizer: FC = () => {
 	const [showDrawer, setShowDrawer] = useState(false)
 	const customizer = useSelector((state: AppState) => state.customizer)

@@ -10,31 +10,31 @@ import icon2 from 'public/images/svgs/icon-user-male.svg'
 const topcards = [
 	{
 		icon: icon2,
-		title: 'Employees',
+		title: 'Matches',
 		digits: '96',
 		bgcolor: 'primary',
 	},
 	{
 		icon: icon3,
-		title: 'Clients',
+		title: 'Scrapped',
 		digits: '3,650',
 		bgcolor: 'warning',
 	},
 	{
 		icon: icon4,
-		title: 'Projects',
+		title: 'Average Price',
 		digits: '356',
 		bgcolor: 'secondary',
 	},
 	{
 		icon: icon5,
-		title: 'Events',
+		title: 'Date',
 		digits: '696',
 		bgcolor: 'error',
 	},
 	{
 		icon: icon6,
-		title: 'Payroll',
+		title: 'Minimum Price',
 		digits: '$96k',
 		bgcolor: 'success',
 	},

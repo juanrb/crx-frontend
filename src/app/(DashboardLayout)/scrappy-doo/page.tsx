@@ -20,6 +20,7 @@ import {
 	TableRow,
 	Typography,
 } from '@mui/material'
+import Link from 'next/link'
 
 import PageContainer from '@/app/components/container/PageContainer'
 import BlankCard from '@/app/components/shared/BlankCard'
@@ -27,8 +28,8 @@ import ParentCard from '@/app/components/shared/ParentCard'
 import Breadcrumb from '@/app/layout/shared/breadcrumb/Breadcrumb'
 
 function createData(
-	imgsrc?: string,
-	pname?: string,
+	imgSrc?: string,
+	label?: string,
 	city?: string,
 	type?: string,
 	minPrice?: number,
@@ -36,8 +37,8 @@ function createData(
 	rooms?: number
 ) {
 	return {
-		imgsrc,
-		pname,
+		imgSrc,
+		label,
 		city,
 		type,
 		minPrice,
@@ -80,16 +81,22 @@ function Row(props: { row: ReturnType<typeof createData> }) {
 				<TableCell>
 					<Stack direction="row" spacing={2} alignItems="center">
 						<Avatar
-							src={row.imgsrc}
-							alt={row.imgsrc}
+							src={row.imgSrc}
+							alt={row.imgSrc}
 							sx={{
 								width: 90,
 								height: 70,
 								borderRadius: '10px',
 							}}
 						/>
-						<Typography variant="h6" fontWeight="600">
-							{row.pname}
+						<Typography
+							color="inherit"
+							variant="h6"
+							fontWeight="600"
+							component={Link}
+							href={`/scrappy-doo/results`}
+						>
+							{row.label}
 						</Typography>
 					</Stack>
 				</TableCell>
