@@ -21,7 +21,6 @@ import {
 	TableRow,
 	Typography,
 } from '@mui/material'
-import { UseQueryResult } from '@tanstack/react-query'
 import Link from 'next/link'
 
 import { useBotQuery } from '@/api/api-client/BotControllerQuery'
@@ -249,6 +248,7 @@ const rows = [
 const ScrappyDoo = () => {
 	const { t } = useTranslation()
 	const { data, error, isLoading } = useBotQuery()
+
 	const BCrumb = [
 		{
 			to: '/',
