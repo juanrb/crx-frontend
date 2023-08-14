@@ -7,6 +7,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import {
 	Avatar,
 	Box,
+	Button,
 	Chip,
 	Collapse,
 	IconButton,
@@ -20,8 +21,10 @@ import {
 	TableRow,
 	Typography,
 } from '@mui/material'
+import { UseQueryResult } from '@tanstack/react-query'
 import Link from 'next/link'
 
+import { useBotQuery } from '@/api/api-client/BotControllerQuery'
 import PageContainer from '@/app/components/container/PageContainer'
 import BlankCard from '@/app/components/shared/BlankCard'
 import ParentCard from '@/app/components/shared/ParentCard'
@@ -245,6 +248,7 @@ const rows = [
 
 const ScrappyDoo = () => {
 	const { t } = useTranslation()
+	const { data, error, isLoading } = useBotQuery()
 	const BCrumb = [
 		{
 			to: '/',
@@ -255,6 +259,8 @@ const ScrappyDoo = () => {
 		},
 	]
 
+	console.log(data, isLoading, error)
+
 	return (
 		<PageContainer title={t('ScrappyDoo')} description={t('scrappyDoo.title')}>
 			{/* breadcrumb */}
@@ -262,6 +268,7 @@ const ScrappyDoo = () => {
 			{/* end breadcrumb */}
 			<ParentCard title={t('scrappyDoo.table.title')}>
 				<BlankCard>
+					<Button>New Bot</Button>
 					<TableContainer component={Paper}>
 						<Table
 							aria-label="collapsible table"
