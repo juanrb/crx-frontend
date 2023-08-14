@@ -301,7 +301,7 @@ const ScrappyDoo = () => {
 							</TableHead>
 							<TableBody>
 								{rows.map((row) => (
-									<Row key={row.pname} row={row} />
+									<Row key={row.label} row={row} />
 								))}
 							</TableBody>
 						</Table>

@@ -11,7 +11,7 @@ export default function Providers({ children }: React.PropsWithChildren) {
 	const [client] = React.useState(new QueryClient())
 
 	setBaseUrl(
-		process.env.NEXT_PRIVATE_BACKEND_API_BASE_URL || 'http://localhost:3001'
+		process.env.NEXT_PUBLIC_BACKEND_API_BASE_URL || 'http://localhost:3001'
 	)
 
 	return (
