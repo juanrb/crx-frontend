@@ -1,7 +1,7 @@
 Generate API client from swagger
 
 ```bash
-npx react-query-swagger /tanstack /input:http://localhost:3000/api-json /output:src/api/api-client.ts /template:Fetch /serviceHost:. /use-recommended-configuration
+npx react-query-swagger /tanstack /input:http://localhost:5001/api-json /output:src/api/api-client.ts /template:Fetch /serviceHost:. /use-recommended-configuration
 ```
 
 ## Run backend:

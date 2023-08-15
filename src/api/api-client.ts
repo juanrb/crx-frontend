@@ -8,99 +8,191 @@
 /* eslint-disable */
 // ReSharper disable InconsistentNaming
 
-export * as BotControllerClient from './api-client/BotControllerClient';
+export * as BotControllerClient from "./api-client/BotControllerClient";
 
-export * as BotControllerQuery from './api-client/BotControllerQuery';
+export * as BotControllerQuery from "./api-client/BotControllerQuery";
 
+export * as ResultControllerClient from "./api-client/ResultControllerClient";
 
-
-export * as ResultControllerClient from './api-client/ResultControllerClient';
-
-export * as ResultControllerQuery from './api-client/ResultControllerQuery';
-
-
+export * as ResultControllerQuery from "./api-client/ResultControllerQuery";
 
 //-----Types.File-----
+export class Bot implements IBot {
+  [key: string]: any;
 
+  constructor(data?: IBot) {
+    if (data) {
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+  init(_data?: any) {
+    if (_data) {
+      for (var property in _data) {
+        if (_data.hasOwnProperty(property)) this[property] = _data[property];
+      }
+    }
+  }
+
+  static fromJS(data: any): Bot {
+    data = typeof data === "object" ? data : {};
+    let result = new Bot();
+    result.init(data);
+    return result;
+  }
+
+  toJSON(data?: any) {
+    data = typeof data === "object" ? data : {};
+    for (var property in this) {
+      if (this.hasOwnProperty(property)) data[property] = this[property];
+    }
+    return data;
+  }
+}
+
+export interface IBot {
+  [key: string]: any;
+}
+
+export class Result implements IResult {
+  [key: string]: any;
+
+  constructor(data?: IResult) {
+    if (data) {
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+  init(_data?: any) {
+    if (_data) {
+      for (var property in _data) {
+        if (_data.hasOwnProperty(property)) this[property] = _data[property];
+      }
+    }
+  }
+
+  static fromJS(data: any): Result {
+    data = typeof data === "object" ? data : {};
+    let result = new Result();
+    result.init(data);
+    return result;
+  }
+
+  toJSON(data?: any) {
+    data = typeof data === "object" ? data : {};
+    for (var property in this) {
+      if (this.hasOwnProperty(property)) data[property] = this[property];
+    }
+    return data;
+  }
+}
+
+export interface IResult {
+  [key: string]: any;
+}
 //-----/CustomTypes.File-----
 
 export class ApiException extends Error {
-    message: string;
-    status: number;
-    response: string;
-    headers: { [key: string]: any; };
-    result: any;
+  message: string;
+  status: number;
+  response: string;
+  headers: { [key: string]: any };
+  result: any;
 
-    constructor(message: string, status: number, response: string, headers: { [key: string]: any; }, result: any) {
-        super();
+  constructor(
+    message: string,
+    status: number,
+    response: string,
+    headers: { [key: string]: any },
+    result: any
+  ) {
+    super();
 
-        this.message = message;
-        this.status = status;
-        this.response = response;
-        this.headers = headers;
-        this.result = result;
-    }
+    this.message = message;
+    this.status = status;
+    this.response = response;
+    this.headers = headers;
+    this.result = result;
+  }
 
-    protected isApiException = true;
+  protected isApiException = true;
 
-    static isApiException(obj: any): obj is ApiException {
-        return obj.isApiException === true;
-    }
+  static isApiException(obj: any): obj is ApiException {
+    return obj.isApiException === true;
+  }
 }
 
-export function throwException(message: string, status: number, response: string, headers: { [key: string]: any; }, result?: any): any {
-    if (result !== null && result !== undefined)
-        throw result;
-    else
-        throw new ApiException(message, status, response, headers, null);
+export function throwException(
+  message: string,
+  status: number,
+  response: string,
+  headers: { [key: string]: any },
+  result?: any
+): any {
+  if (result !== null && result !== undefined) throw result;
+  else throw new ApiException(message, status, response, headers, null);
 }
 
 //-----/Types.File-----
 
-import { addResultTypeFactory } from './api-client/helpers';
-export { setBaseUrl, getBaseUrl } from './api-client/helpers';
-export { setFetchFactory, getFetch } from './api-client/helpers';
-
+import { addResultTypeFactory } from "./api-client/helpers";
+export { setBaseUrl, getBaseUrl } from "./api-client/helpers";
+export { setFetchFactory, getFetch } from "./api-client/helpers";
 
 //-----PersistorHydrator.File-----
-import type { PersistedClient } from '@tanstack/react-query-persist-client';
-import type { DehydratedState, QueryKey } from '@tanstack/react-query'
-import { getResultTypeFactory } from './api-client/helpers';
+import type { PersistedClient } from "@tanstack/react-query-persist-client";
+import type { DehydratedState, QueryKey } from "@tanstack/react-query";
+import { getResultTypeFactory } from "./api-client/helpers";
 
 /*
  * If you have Dates in QueryKeys (i.e. in request parameters), you need to deserialize them to Dates correctly
  * (otherwise they are deserialized as strings by default, and your queries are broken).
  */
 export function deserializeDate(str: unknown) {
-  if (!str || typeof str !== 'string') return str;
+  if (!str || typeof str !== "string") return str;
   if (!/^\d\d\d\d\-\d\d\-\d\d/.test(str)) return str;
-  
+
   const date = new Date(str);
   const isDate = date instanceof Date && !isNaN(date as any);
-  
+
   return isDate ? date : str;
 }
 
 export function deserializeDatesInQueryKeys(queryKey: QueryKey) {
-  return queryKey
-    // We need to replace `null` with `undefined` in query key, because
-    // `undefined` is serialized as `null`.
-    // And most probably if we have `null` in QueryKey it actually means `undefined`.
-    // We can't keep nulls, because they have a different meaning, and e.g. boolean parameters are not allowed to be null.
-    .map(x => (x === null ? undefined : x))
-    .map(x => deserializeDate(x));
+  return (
+    queryKey
+      // We need to replace `null` with `undefined` in query key, because
+      // `undefined` is serialized as `null`.
+      // And most probably if we have `null` in QueryKey it actually means `undefined`.
+      // We can't keep nulls, because they have a different meaning, and e.g. boolean parameters are not allowed to be null.
+      .map((x) => (x === null ? undefined : x))
+      .map((x) => deserializeDate(x))
+  );
 }
 
 export function deserializeClassesInQueryData(queryKey: QueryKey, data: any) {
   if (!data) {
     return data;
-  } else if (typeof data !== 'object') {
+  } else if (typeof data !== "object") {
     return data;
-  } else if ('pages' in data && 'pageParams' in data && Array.isArray(data.pages) && Array.isArray(data.pageParams)) {
+  } else if (
+    "pages" in data &&
+    "pageParams" in data &&
+    Array.isArray(data.pages) &&
+    Array.isArray(data.pageParams)
+  ) {
     // infinite query
-    data.pages = data.pages.map((page:any) => deserializeClassesInQueryData(queryKey, page));
+    data.pages = data.pages.map((page: any) =>
+      deserializeClassesInQueryData(queryKey, page)
+    );
   } else if (Array.isArray(data)) {
-    return data.map(elem => constructDtoClass(queryKey, elem));
+    return data.map((elem) => constructDtoClass(queryKey, elem));
   } else {
     return constructDtoClass(queryKey, data);
   }
@@ -113,7 +205,10 @@ export function deserializeClassesInQueryData(queryKey: QueryKey, data: any) {
 export function persisterDeserialize(cache: string): PersistedClient {
   const client: PersistedClient = JSON.parse(cache);
   client.clientState.queries.forEach((query) => {
-    query.state.data = deserializeClassesInQueryData(query.queryKey, query.state.data);
+    query.state.data = deserializeClassesInQueryData(
+      query.queryKey,
+      query.state.data
+    );
     query.queryKey = deserializeDatesInQueryKeys(query.queryKey);
   });
 
@@ -124,8 +219,7 @@ export function constructDtoClass(queryKey: QueryKey, data: any): unknown {
   const resultTypeKey = getResultTypeClassKey(queryKey);
   const constructorFunction = getResultTypeFactory(resultTypeKey);
 
-  if (!data || !constructorFunction)
-    return data;
+  if (!data || !constructorFunction) return data;
 
   return constructorFunction(data);
 }
@@ -141,14 +235,28 @@ export function getResultTypeClassKey(queryKey: QueryKey): string {
   }
 
   // We actually should never reach this point :)
-  return queryKey.join('___');
+  return queryKey.join("___");
 }
 
 export function initPersister() {
-  
+  addResultTypeFactory("BotControllerClient___bot", (data: any) => {
+    const result = new Bot();
+    result.init(data);
+    return result;
+  });
+  addResultTypeFactory("BotControllerClient___botById", (data: any) => {
+    const result = new Bot();
+    result.init(data);
+    return result;
+  });
 
-
-
-
+  addResultTypeFactory(
+    "ResultControllerClient___resultByBotId",
+    (data: any) => {
+      const result = new Result();
+      result.init(data);
+      return result;
+    }
+  );
 }
 //-----/PersistorHydrator.File----

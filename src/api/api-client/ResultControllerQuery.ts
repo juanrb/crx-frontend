@@ -31,13 +31,13 @@ url_ = url_.replace("{botId}", encodeURIComponent("" + botId));
   return url_;
 }
 
-let resultByBotIdDefaultOptions: UseQueryOptions<void, unknown, void> = {
+let resultByBotIdDefaultOptions: UseQueryOptions<Types.Result, unknown, Types.Result> = {
   queryFn: __resultByBotId,
 };
-export function getResultByBotIdDefaultOptions(): UseQueryOptions<void, unknown, void> {
+export function getResultByBotIdDefaultOptions(): UseQueryOptions<Types.Result, unknown, Types.Result> {
   return resultByBotIdDefaultOptions;
 };
-export function setResultByBotIdDefaultOptions(options: UseQueryOptions<void, unknown, void>) {
+export function setResultByBotIdDefaultOptions(options: UseQueryOptions<Types.Result, unknown, Types.Result>) {
   resultByBotIdDefaultOptions = options;
 }
 
@@ -64,11 +64,13 @@ function __resultByBotId(context: QueryFunctionContext) {
       context.queryKey[2] as string    );
 }
 
-export function useResultByBotIdQuery<TSelectData = void, TError = unknown>(dto: ResultByBotIdResultControllerQueryParameters, options?: UseQueryOptions<void, TError, TSelectData>): UseQueryResult<TSelectData, TError>;
-
-export function useResultByBotIdQuery<TSelectData = void, TError = unknown>(botId: string, options?: UseQueryOptions<void, TError, TSelectData>): UseQueryResult<TSelectData, TError>;
-export function useResultByBotIdQuery<TSelectData = void, TError = unknown>(...params: any []): UseQueryResult<TSelectData, TError> {
-  let options: UseQueryOptions<void, TError, TSelectData> | undefined = undefined;
+export function useResultByBotIdQuery<TSelectData = Types.Result, TError = unknown>(dto: ResultByBotIdResultControllerQueryParameters, options?: UseQueryOptions<Types.Result, TError, TSelectData>): UseQueryResult<TSelectData, TError>;
+/**
+ * @return The result records
+ */
+export function useResultByBotIdQuery<TSelectData = Types.Result, TError = unknown>(botId: string, options?: UseQueryOptions<Types.Result, TError, TSelectData>): UseQueryResult<TSelectData, TError>;
+export function useResultByBotIdQuery<TSelectData = Types.Result, TError = unknown>(...params: any []): UseQueryResult<TSelectData, TError> {
+  let options: UseQueryOptions<Types.Result, TError, TSelectData> | undefined = undefined;
   let botId: any = undefined;
   
   if (params.length > 0) {
@@ -83,26 +85,31 @@ export function useResultByBotIdQuery<TSelectData = void, TError = unknown>(...p
   const metaContext = useContext(QueryMetaContext);
   options = addMetaToOptions(options, metaContext);
 
-  return useQuery<void, TError, TSelectData>({
+  return useQuery<Types.Result, TError, TSelectData>({
     queryFn: __resultByBotId,
     queryKey: resultByBotIdQueryKey(botId),
-    ...resultByBotIdDefaultOptions as unknown as UseQueryOptions<void, TError, TSelectData>,
+    ...resultByBotIdDefaultOptions as unknown as UseQueryOptions<Types.Result, TError, TSelectData>,
     ...options,
   });
 }
-
-export function setResultByBotIdData(queryClient: QueryClient, updater: (data: void | undefined) => void, botId: string) {
+/**
+ * @return The result records
+ */
+export function setResultByBotIdData(queryClient: QueryClient, updater: (data: Types.Result | undefined) => Types.Result, botId: string) {
   queryClient.setQueryData(resultByBotIdQueryKey(botId),
     updater
   );
 }
 
-export function setResultByBotIdDataByQueryId(queryClient: QueryClient, queryKey: QueryKey, updater: (data: void | undefined) => void) {
+/**
+ * @return The result records
+ */
+export function setResultByBotIdDataByQueryId(queryClient: QueryClient, queryKey: QueryKey, updater: (data: Types.Result | undefined) => Types.Result) {
   queryClient.setQueryData(queryKey, updater);
 }
     
     
-export function updateUrl(id: number, botId: number): string {
+export function updateUrl(id: number, botId: number, statusId: string): string {
   let url_ = getBaseUrl() + "/api/user/real-estate/results/{botId}/{id}";
 if (id === undefined || id === null)
   throw new Error("The parameter 'id' must be defined.");
@@ -110,24 +117,32 @@ url_ = url_.replace("{id}", encodeURIComponent("" + id));
 if (botId === undefined || botId === null)
   throw new Error("The parameter 'botId' must be defined.");
 url_ = url_.replace("{botId}", encodeURIComponent("" + botId));
+if (statusId === undefined || statusId === null)
+  throw new Error("The parameter 'statusId' must be defined.");
+url_ = url_.replace("{statusId}", encodeURIComponent("" + statusId));
   url_ = url_.replace(/[?&]$/, "");
   return url_;
 }
 
-export function updateMutationKey(id: number, botId: number): MutationKey {
+export function updateMutationKey(id: number, botId: number, statusId: string): MutationKey {
   return trimArrayEnd([
       'ResultControllerClient',
       'update',
       id as any,
       botId as any,
+      statusId as any,
     ]);
 }
 
-export function useUpdateMutation<TContext>(id: number, botId: number, options?: Omit<UseMutationOptions<void, unknown, void, TContext>, 'mutationKey' | 'mutationFn'>): UseMutationResult<void, unknown, void, TContext> {
-  const key = updateMutationKey(id, botId);
+/**
+ * @param statusId New status Id
+ * @return The result records
+ */
+export function useUpdateMutation<TContext>(id: number, botId: number, statusId: string, options?: Omit<UseMutationOptions<Types.Result, unknown, void, TContext>, 'mutationKey' | 'mutationFn'>): UseMutationResult<Types.Result, unknown, void, TContext> {
+  const key = updateMutationKey(id, botId, statusId);
   
   const metaContext = useContext(QueryMetaContext);
   options = addMetaToOptions(options, metaContext);
   
-      return useMutation(() => Client.update(id, botId), {...options, mutationKey: key});
+      return useMutation(() => Client.update(id, botId, statusId), {...options, mutationKey: key});
 }

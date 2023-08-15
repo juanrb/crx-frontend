@@ -28,13 +28,13 @@ export function botUrl(): string {
   return url_;
 }
 
-let botDefaultOptions: UseQueryOptions<void, unknown, void> = {
+let botDefaultOptions: UseQueryOptions<Types.Bot[], unknown, Types.Bot[]> = {
   queryFn: __bot,
 };
-export function getBotDefaultOptions(): UseQueryOptions<void, unknown, void> {
+export function getBotDefaultOptions(): UseQueryOptions<Types.Bot[], unknown, Types.Bot[]> {
   return botDefaultOptions;
 };
-export function setBotDefaultOptions(options: UseQueryOptions<void, unknown, void>) {
+export function setBotDefaultOptions(options: UseQueryOptions<Types.Bot[], unknown, Types.Bot[]>) {
   botDefaultOptions = options;
 }
 
@@ -50,9 +50,12 @@ function __bot() {
     );
 }
 
-export function useBotQuery<TSelectData = void, TError = unknown>(options?: UseQueryOptions<void, TError, TSelectData>): UseQueryResult<TSelectData, TError>;
-export function useBotQuery<TSelectData = void, TError = unknown>(...params: any []): UseQueryResult<TSelectData, TError> {
-  let options: UseQueryOptions<void, TError, TSelectData> | undefined = undefined;
+/**
+ * @return The bot records
+ */
+export function useBotQuery<TSelectData = Types.Bot[], TError = unknown>(options?: UseQueryOptions<Types.Bot[], TError, TSelectData>): UseQueryResult<TSelectData, TError>;
+export function useBotQuery<TSelectData = Types.Bot[], TError = unknown>(...params: any []): UseQueryResult<TSelectData, TError> {
+  let options: UseQueryOptions<Types.Bot[], TError, TSelectData> | undefined = undefined;
   
 
   options = params[0] as any;
@@ -60,45 +63,78 @@ export function useBotQuery<TSelectData = void, TError = unknown>(...params: any
   const metaContext = useContext(QueryMetaContext);
   options = addMetaToOptions(options, metaContext);
 
-  return useQuery<void, TError, TSelectData>({
+  return useQuery<Types.Bot[], TError, TSelectData>({
     queryFn: __bot,
     queryKey: botQueryKey(),
-    ...botDefaultOptions as unknown as UseQueryOptions<void, TError, TSelectData>,
+    ...botDefaultOptions as unknown as UseQueryOptions<Types.Bot[], TError, TSelectData>,
     ...options,
   });
 }
-
-export function setBotData(queryClient: QueryClient, updater: (data: void | undefined) => void, ) {
+/**
+ * @return The bot records
+ */
+export function setBotData(queryClient: QueryClient, updater: (data: Types.Bot[] | undefined) => Types.Bot[], ) {
   queryClient.setQueryData(botQueryKey(),
     updater
   );
 }
 
-export function setBotDataByQueryId(queryClient: QueryClient, queryKey: QueryKey, updater: (data: void | undefined) => void) {
+/**
+ * @return The bot records
+ */
+export function setBotDataByQueryId(queryClient: QueryClient, queryKey: QueryKey, updater: (data: Types.Bot[] | undefined) => Types.Bot[]) {
   queryClient.setQueryData(queryKey, updater);
 }
     
     
-export function createUrl(): string {
+export function createUrl(label: string, type: string, rooms: string, priceMax: number, priceMin: number): string {
   let url_ = getBaseUrl() + "/api/user/real-estate/bot";
+if (label === undefined || label === null)
+  throw new Error("The parameter 'label' must be defined.");
+url_ = url_.replace("{label}", encodeURIComponent("" + label));
+if (type === undefined || type === null)
+  throw new Error("The parameter 'type' must be defined.");
+url_ = url_.replace("{type}", encodeURIComponent("" + type));
+if (rooms === undefined || rooms === null)
+  throw new Error("The parameter 'rooms' must be defined.");
+url_ = url_.replace("{rooms}", encodeURIComponent("" + rooms));
+if (priceMax === undefined || priceMax === null)
+  throw new Error("The parameter 'priceMax' must be defined.");
+url_ = url_.replace("{priceMax}", encodeURIComponent("" + priceMax));
+if (priceMin === undefined || priceMin === null)
+  throw new Error("The parameter 'priceMin' must be defined.");
+url_ = url_.replace("{priceMin}", encodeURIComponent("" + priceMin));
   url_ = url_.replace(/[?&]$/, "");
   return url_;
 }
 
-export function createMutationKey(): MutationKey {
+export function createMutationKey(label: string, type: string, rooms: string, priceMax: number, priceMin: number): MutationKey {
   return trimArrayEnd([
       'BotControllerClient',
       'create',
+      label as any,
+      type as any,
+      rooms as any,
+      priceMax as any,
+      priceMin as any,
     ]);
 }
 
-export function useCreateMutation<TContext>(options?: Omit<UseMutationOptions<void, unknown, void, TContext>, 'mutationKey' | 'mutationFn'>): UseMutationResult<void, unknown, void, TContext> {
-  const key = createMutationKey();
+/**
+ * @param label label of the bot
+ * @param type type of flat
+ * @param rooms Quantity of rooms
+ * @param priceMax Maximum price
+ * @param priceMin Minimum price
+ * @return The bot records
+ */
+export function useCreateMutation<TContext>(label: string, type: string, rooms: string, priceMax: number, priceMin: number, options?: Omit<UseMutationOptions<Types.Bot, unknown, void, TContext>, 'mutationKey' | 'mutationFn'>): UseMutationResult<Types.Bot, unknown, void, TContext> {
+  const key = createMutationKey(label, type, rooms, priceMax, priceMin);
   
   const metaContext = useContext(QueryMetaContext);
   options = addMetaToOptions(options, metaContext);
   
-      return useMutation(() => Client.create(), {...options, mutationKey: key});
+      return useMutation(() => Client.create(label, type, rooms, priceMax, priceMin), {...options, mutationKey: key});
 }
   
     
@@ -111,13 +147,13 @@ url_ = url_.replace("{id}", encodeURIComponent("" + id));
   return url_;
 }
 
-let botByIdDefaultOptions: UseQueryOptions<void, unknown, void> = {
+let botByIdDefaultOptions: UseQueryOptions<Types.Bot, unknown, Types.Bot> = {
   queryFn: __botById,
 };
-export function getBotByIdDefaultOptions(): UseQueryOptions<void, unknown, void> {
+export function getBotByIdDefaultOptions(): UseQueryOptions<Types.Bot, unknown, Types.Bot> {
   return botByIdDefaultOptions;
 };
-export function setBotByIdDefaultOptions(options: UseQueryOptions<void, unknown, void>) {
+export function setBotByIdDefaultOptions(options: UseQueryOptions<Types.Bot, unknown, Types.Bot>) {
   botByIdDefaultOptions = options;
 }
 
@@ -144,11 +180,13 @@ function __botById(context: QueryFunctionContext) {
       context.queryKey[2] as string    );
 }
 
-export function useBotByIdQuery<TSelectData = void, TError = unknown>(dto: BotByIdBotControllerQueryParameters, options?: UseQueryOptions<void, TError, TSelectData>): UseQueryResult<TSelectData, TError>;
-
-export function useBotByIdQuery<TSelectData = void, TError = unknown>(id: string, options?: UseQueryOptions<void, TError, TSelectData>): UseQueryResult<TSelectData, TError>;
-export function useBotByIdQuery<TSelectData = void, TError = unknown>(...params: any []): UseQueryResult<TSelectData, TError> {
-  let options: UseQueryOptions<void, TError, TSelectData> | undefined = undefined;
+export function useBotByIdQuery<TSelectData = Types.Bot, TError = unknown>(dto: BotByIdBotControllerQueryParameters, options?: UseQueryOptions<Types.Bot, TError, TSelectData>): UseQueryResult<TSelectData, TError>;
+/**
+ * @return The bot records
+ */
+export function useBotByIdQuery<TSelectData = Types.Bot, TError = unknown>(id: string, options?: UseQueryOptions<Types.Bot, TError, TSelectData>): UseQueryResult<TSelectData, TError>;
+export function useBotByIdQuery<TSelectData = Types.Bot, TError = unknown>(...params: any []): UseQueryResult<TSelectData, TError> {
+  let options: UseQueryOptions<Types.Bot, TError, TSelectData> | undefined = undefined;
   let id: any = undefined;
   
   if (params.length > 0) {
@@ -163,21 +201,26 @@ export function useBotByIdQuery<TSelectData = void, TError = unknown>(...params:
   const metaContext = useContext(QueryMetaContext);
   options = addMetaToOptions(options, metaContext);
 
-  return useQuery<void, TError, TSelectData>({
+  return useQuery<Types.Bot, TError, TSelectData>({
     queryFn: __botById,
     queryKey: botByIdQueryKey(id),
-    ...botByIdDefaultOptions as unknown as UseQueryOptions<void, TError, TSelectData>,
+    ...botByIdDefaultOptions as unknown as UseQueryOptions<Types.Bot, TError, TSelectData>,
     ...options,
   });
 }
-
-export function setBotByIdData(queryClient: QueryClient, updater: (data: void | undefined) => void, id: string) {
+/**
+ * @return The bot records
+ */
+export function setBotByIdData(queryClient: QueryClient, updater: (data: Types.Bot | undefined) => Types.Bot, id: string) {
   queryClient.setQueryData(botByIdQueryKey(id),
     updater
   );
 }
 
-export function setBotByIdDataByQueryId(queryClient: QueryClient, queryKey: QueryKey, updater: (data: void | undefined) => void) {
+/**
+ * @return The bot records
+ */
+export function setBotByIdDataByQueryId(queryClient: QueryClient, queryKey: QueryKey, updater: (data: Types.Bot | undefined) => Types.Bot) {
   queryClient.setQueryData(queryKey, updater);
 }
     
@@ -199,7 +242,10 @@ export function deleteMutationKey(id: string): MutationKey {
     ]);
 }
 
-export function useDeleteMutation<TContext>(id: string, options?: Omit<UseMutationOptions<void, unknown, void, TContext>, 'mutationKey' | 'mutationFn'>): UseMutationResult<void, unknown, void, TContext> {
+/**
+ * @return The bot records
+ */
+export function useDeleteMutation<TContext>(id: string, options?: Omit<UseMutationOptions<Types.Bot, unknown, void, TContext>, 'mutationKey' | 'mutationFn'>): UseMutationResult<Types.Bot, unknown, void, TContext> {
   const key = deleteMutationKey(id);
   
   const metaContext = useContext(QueryMetaContext);
