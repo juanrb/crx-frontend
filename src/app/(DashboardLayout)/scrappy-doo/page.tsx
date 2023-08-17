@@ -2,12 +2,12 @@
 
 import * as React from 'react'
 import { useTranslation } from 'react-i18next'
+import { useTheme } from '@emotion/react'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import {
 	Avatar,
 	Box,
-	Button,
 	Chip,
 	Collapse,
 	IconButton,
@@ -24,27 +24,30 @@ import {
 import Link from 'next/link'
 
 import { useBotQuery } from '@/api/api-client/BotControllerQuery'
+import AddBot from '@/app/components/apps/scrappy-doo/AddBot'
 import PageContainer from '@/app/components/container/PageContainer'
 import BlankCard from '@/app/components/shared/BlankCard'
 import ParentCard from '@/app/components/shared/ParentCard'
 import Breadcrumb from '@/app/layout/shared/breadcrumb/Breadcrumb'
 
 function createData(
+	id: number,
 	imgSrc?: string,
 	label?: string,
 	city?: string,
 	type?: string,
-	minPrice?: number,
-	maxPrice?: number,
+	priceMin?: number,
+	priceMax?: number,
 	rooms?: number
 ) {
 	return {
+		id,
 		imgSrc,
 		label,
 		city,
 		type,
-		minPrice,
-		maxPrice,
+		priceMin,
+		priceMax,
 		rooms,
 		history: [
 			{
@@ -104,7 +107,7 @@ function Row(props: { row: ReturnType<typeof createData> }) {
 				</TableCell>
 				<TableCell>
 					<Typography color="textSecondary" variant="h6">
-						{row.city}
+						{row.city || 'N/A'}
 					</Typography>
 				</TableCell>
 				<TableCell>
@@ -117,7 +120,7 @@ function Row(props: { row: ReturnType<typeof createData> }) {
 				</TableCell>
 				<TableCell>
 					<Typography color="textSecondary" variant="h6" fontWeight="400">
-						${row.minPrice} - ${row.maxPrice}
+						${row.priceMin} - ${row.priceMax}
 					</Typography>
 				</TableCell>
 				<TableCell>
@@ -206,48 +209,94 @@ function Row(props: { row: ReturnType<typeof createData> }) {
 	)
 }
 
-const rows = [
-	createData(
-		'/images/tools/scrappy-doo/bot.jpg',
-		'Depto grande en palermo',
-		'CABA',
-		'departamento',
-		400,
-		500,
-		2
-	),
-	createData(
-		'/images/tools/scrappy-doo/bot.jpg',
-		'Depto grande en Recoleta',
-		'CABA',
-		'departamento',
-		400,
-		590,
-		1
-	),
-	createData(
-		'/images/tools/scrappy-doo/bot.jpg',
-		'Depto chico en Palermo',
-		'CABA',
-		'departamento',
-		450,
-		590,
-		2
-	),
-	createData(
-		'/images/tools/scrappy-doo/bot.jpg',
-		'Local para peluquería',
-		'CABA',
-		'local',
-		350,
-		590,
-		6
-	),
-]
+// const rows = [
+// 	createData(
+// 		'/images/tools/scrappy-doo/bot.jpg',
+// 		'Depto grande en palermo',
+// 		'CABA',
+// 		'departamento',
+// 		400,
+// 		500,
+// 		2
+// 	),
+// 	createData(
+// 		'/images/tools/scrappy-doo/bot.jpg',
+// 		'Depto grande en Recoleta',
+// 		'CABA',
+// 		'departamento',
+// 		400,
+// 		590,
+// 		1
+// 	),
+// 	createData(
+// 		'/images/tools/scrappy-doo/bot.jpg',
+// 		'Depto chico en Palermo',
+// 		'CABA',
+// 		'departamento',
+// 		450,
+// 		590,
+// 		2
+// 	),
+// 	createData(
+// 		'/images/tools/scrappy-doo/bot.jpg',
+// 		'Local para peluquería',
+// 		'CABA',
+// 		'local',
+// 		350,
+// 		590,
+// 		6
+// 	),
+// ]
+interface colorsType {
+	lineColor: string
+	disp: string | any
+	id: number
+}
 
+// eslint-disable-next-line max-lines-per-function
 const ScrappyDoo = () => {
 	const { t } = useTranslation()
-	const { data, error, isLoading } = useBotQuery()
+	const { data, isLoading, error } = useBotQuery()
+	const rows = data?.map((bot) =>
+		createData(
+			bot.id,
+			bot.imgSrc,
+			bot.label,
+			bot.city,
+			bot.type,
+			bot.priceMin,
+			bot.priceMax,
+			bot.rooms
+		)
+	)
+	const theme = useTheme()
+	const colorvariation: colorsType[] = [
+		{
+			id: 1,
+			lineColor: theme.palette.warning.main,
+			disp: 'warning',
+		},
+		{
+			id: 2,
+			lineColor: theme.palette.info.main,
+			disp: 'info',
+		},
+		{
+			id: 3,
+			lineColor: theme.palette.error.main,
+			disp: 'error',
+		},
+		{
+			id: 4,
+			lineColor: theme.palette.success.main,
+			disp: 'success',
+		},
+		{
+			id: 5,
+			lineColor: theme.palette.primary.main,
+			disp: 'primary',
+		},
+	]
 
 	const BCrumb = [
 		{
@@ -268,7 +317,7 @@ const ScrappyDoo = () => {
 			{/* end breadcrumb */}
 			<ParentCard title={t('scrappyDoo.table.title')}>
 				<BlankCard>
-					<Button>New Bot</Button>
+					<AddBot colors={colorvariation} />
 					<TableContainer component={Paper}>
 						<Table
 							aria-label="collapsible table"
@@ -300,9 +349,9 @@ const ScrappyDoo = () => {
 								</TableRow>
 							</TableHead>
 							<TableBody>
-								{rows.map((row) => (
-									<Row key={row.label} row={row} />
-								))}
+								{rows
+									? rows.map((row) => <Row key={row.id} row={row} />)
+									: null}
 							</TableBody>
 						</Table>
 					</TableContainer>
