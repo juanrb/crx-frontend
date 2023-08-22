@@ -8,6 +8,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import {
 	Avatar,
 	Box,
+	Card,
 	Chip,
 	Collapse,
 	IconButton,
@@ -27,7 +28,6 @@ import { useBotQuery } from '@/api/api-client/BotControllerQuery'
 import AddBot from '@/app/components/apps/scrappy-doo/AddBot'
 import PageContainer from '@/app/components/container/PageContainer'
 import BlankCard from '@/app/components/shared/BlankCard'
-import ParentCard from '@/app/components/shared/ParentCard'
 import Breadcrumb from '@/app/layout/shared/breadcrumb/Breadcrumb'
 
 function createData(
@@ -315,9 +315,19 @@ const ScrappyDoo = () => {
 			{/* breadcrumb */}
 			<Breadcrumb title={t('ScrappyDoo')} items={BCrumb} />
 			{/* end breadcrumb */}
-			<ParentCard title={t('scrappyDoo.table.title')}>
-				<BlankCard>
+			<Card>
+				<Box
+					display={'flex'}
+					alignItems={'center'}
+					justifyContent={'space-between'}
+					py={2}
+				>
+					<Typography variant="h5" mb={2} fontWeight={700}>
+						{t('scrappyDoo.table.title')}
+					</Typography>
 					<AddBot colors={colorvariation} />
+				</Box>
+				<BlankCard>
 					<TableContainer component={Paper}>
 						<Table
 							aria-label="collapsible table"
@@ -356,7 +366,7 @@ const ScrappyDoo = () => {
 						</Table>
 					</TableContainer>
 				</BlankCard>
-			</ParentCard>
+			</Card>
 		</PageContainer>
 	)
 }
