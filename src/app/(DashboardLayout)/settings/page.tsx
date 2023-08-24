@@ -1,29 +1,137 @@
 'use client'
 
-import React, { Suspense } from 'react'
-import { useTranslation } from 'react-i18next'
-import { Switch } from '@mui/material'
+import * as React from 'react'
+import { Box, CardContent, Divider, Grid, Tab, Tabs } from '@mui/material'
+import {
+	IconArticle,
+	IconBell,
+	IconLock,
+	IconUserCircle,
+} from '@tabler/icons-react'
 
 import PageContainer from '@/app/components/container/PageContainer'
-import DashboardCard from '@/app/components/shared/DashboardCard'
-import { setDarkMode } from '@/store/customizer/CustomizerSlice'
-import { useDispatch } from '@/store/hooks'
+import BlankCard from '@/app/components/shared/BlankCard'
+import Breadcrumb from '@/app/layout/shared/breadcrumb/Breadcrumb'
 
-export default function Settings() {
-	const dispatch = useDispatch()
-	const { t } = useTranslation()
+import AccountTab from './components/AccountTab'
+import BillsTab from './components/BillsTab'
+import NotificationTab from './components/NotificationTab'
+import SecurityTab from './components/SecurityTab'
+
+// components
+
+const BCrumb = [
+	{
+		to: '/',
+		title: 'Home',
+	},
+	{
+		title: 'Account Setting',
+	},
+]
+
+interface TabPanelProps {
+	children?: React.ReactNode
+	index: number
+	value: number
+}
+
+function TabPanel(props: TabPanelProps) {
+	const { children, value, index, ...other } = props
+
 	return (
-		<PageContainer title={t('Settings')} description={t('settings.title')}>
-			<DashboardCard title={t('Settings')}>
-				<Suspense
-					fallback={
-						<p style={{ textAlign: 'center' }}>loading... on initial request</p>
-					}
-				>
-					Dark mode
-					<Switch onClick={() => dispatch(setDarkMode('dark'))} />
-				</Suspense>
-			</DashboardCard>
+		<div
+			role="tabpanel"
+			hidden={value !== index}
+			id={`simple-tabpanel-${index}`}
+			aria-labelledby={`simple-tab-${index}`}
+			{...other}
+		>
+			{value === index && <Box>{children}</Box>}
+		</div>
+	)
+}
+
+function a11yProps(index: number) {
+	return {
+		id: `simple-tab-${index}`,
+		'aria-controls': `simple-tabpanel-${index}`,
+	}
+}
+
+const AccountSetting = () => {
+	const [value, setValue] = React.useState(0)
+
+	const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+		setValue(newValue)
+	}
+
+	return (
+		<PageContainer
+			title="Account Setting"
+			description="this is Account Setting"
+		>
+			{/* breadcrumb */}
+			<Breadcrumb title="Account Setting" items={BCrumb} />
+			{/* end breadcrumb */}
+
+			<Grid container spacing={3}>
+				<Grid item xs={12}>
+					<BlankCard>
+						<Box sx={{ maxWidth: { xs: 320, sm: 480 } }}>
+							<Tabs
+								value={value}
+								onChange={handleChange}
+								scrollButtons="auto"
+								aria-label="basic tabs example"
+							>
+								<Tab
+									iconPosition="start"
+									icon={<IconUserCircle size="22" />}
+									label="Account"
+									{...a11yProps(0)}
+								/>
+
+								<Tab
+									iconPosition="start"
+									icon={<IconBell size="22" />}
+									label="Notifications"
+									{...a11yProps(1)}
+								/>
+								<Tab
+									iconPosition="start"
+									icon={<IconArticle size="22" />}
+									label="Bills"
+									{...a11yProps(2)}
+								/>
+								<Tab
+									iconPosition="start"
+									icon={<IconLock size="22" />}
+									label="Security"
+									{...a11yProps(3)}
+								/>
+							</Tabs>
+						</Box>
+						<Divider />
+						<CardContent>
+							<TabPanel value={value} index={0}>
+								<AccountTab />
+							</TabPanel>
+							<TabPanel value={value} index={1}>
+								<NotificationTab />
+							</TabPanel>
+							<TabPanel value={value} index={2}>
+								<BillsTab />
+							</TabPanel>
+							<TabPanel value={value} index={3}>
+								<SecurityTab />
+							</TabPanel>
+						</CardContent>
+					</BlankCard>
+				</Grid>
+			</Grid>
 		</PageContainer>
 	)
 }
+
+export default AccountSetting
