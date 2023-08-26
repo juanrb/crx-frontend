@@ -70,7 +70,7 @@ export default function Register2() {
 										</Typography>
 										<Typography
 											component={Link}
-											href="/auth/auth2/login"
+											href="/auth/login"
 											fontWeight="500"
 											sx={{
 												textDecoration: 'none',

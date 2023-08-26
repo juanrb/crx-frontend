@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "swagger": "npx react-query-swagger /tanstack /input:http://localhost:5001/api-json /output:src/api/api-client.ts /template:Fetch /serviceHost:. /use-recommended-configuration",
     "find:unused": "next-unused"
   },
   "next-unused": {

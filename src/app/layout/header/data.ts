@@ -56,7 +56,7 @@ interface ProfileType {
 	href: string
 	title: string
 	subtitle: string
-	icon: any
+	icon: string
 }
 const profile: ProfileType[] = [
 	{

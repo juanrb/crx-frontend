@@ -10,14 +10,14 @@ import {
 } from '@mui/material'
 import { Stack } from '@mui/system'
 import { IconMail } from '@tabler/icons-react'
-import Image from 'next/image'
 import Link from 'next/link'
 
 import * as dropdownData from './data'
 
+// eslint-disable-next-line max-lines-per-function
 const Profile = () => {
-	const [anchorEl2, setAnchorEl2] = useState(null)
-	const handleClick2 = (event: any) => {
+	const [anchorEl2, setAnchorEl2] = useState<EventTarget | null>(null)
+	const handleClick2 = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl2(event.currentTarget)
 	}
 	const handleClose2 = () => {
@@ -92,7 +92,7 @@ const Profile = () => {
 							gap={1}
 						>
 							<IconMail width={15} height={15} />
-							info@modernize.com
+							info@crx.com
 						</Typography>
 					</Box>
 				</Stack>

@@ -11,6 +11,7 @@ import NextTopLoader from 'nextjs-toploader'
 // import RTL from '@/app/(DashboardLayout)/layout/shared/customizer/RTL'
 // import { useSelector } from '@/store/hooks'
 import { store } from '@/store/store'
+import Providers from '@/utils/api/provider'
 // import { AppState } from '@/store/store'
 import { NextAppDirEmotionCacheProvider } from '@/utils/theme/EmotionCache'
 import { ThemeSettings } from '@/utils/theme/Theme'
@@ -55,24 +56,26 @@ export default function RootLayout({
 	return (
 		<html lang="en" suppressHydrationWarning>
 			<body>
-				<Provider store={store}>
-					{loading ? (
-						// eslint-disable-next-line react/no-children-prop
-						<MyApp children={children} />
-					) : (
-						<Box
-							sx={{
-								display: 'flex',
-								justifyContent: 'center',
-								alignItems: 'center',
-								width: '100%',
-								height: '100vh',
-							}}
-						>
-							<CircularProgress />
-						</Box>
-					)}
-				</Provider>
+				<Providers>
+					<Provider store={store}>
+						{loading ? (
+							// eslint-disable-next-line react/no-children-prop
+							<MyApp children={children} />
+						) : (
+							<Box
+								sx={{
+									display: 'flex',
+									justifyContent: 'center',
+									alignItems: 'center',
+									width: '100%',
+									height: '100vh',
+								}}
+							>
+								<CircularProgress />
+							</Box>
+						)}
+					</Provider>
+				</Providers>
 			</body>
 		</html>
 	)

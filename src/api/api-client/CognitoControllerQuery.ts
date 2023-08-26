@@ -42,3 +42,29 @@ export function useCreateMutation<TContext>(options?: Omit<UseMutationOptions<Ty
   
       return useMutation((body: Types.User) => Client.create(body), {...options, mutationKey: key});
 }
+  
+    
+export function authUrl(): string {
+  let url_ = getBaseUrl() + "/api/user/auth";
+  url_ = url_.replace(/[?&]$/, "");
+  return url_;
+}
+
+export function authMutationKey(): MutationKey {
+  return trimArrayEnd([
+      'CognitoControllerClient',
+      'auth',
+    ]);
+}
+
+/**
+ * @return The User records
+ */
+export function useAuthMutation<TContext>(options?: Omit<UseMutationOptions<Types.UserAuthResponse, unknown, Types.User, TContext>, 'mutationKey' | 'mutationFn'>): UseMutationResult<Types.UserAuthResponse, unknown, Types.User, TContext> {
+  const key = authMutationKey();
+  
+  const metaContext = useContext(QueryMetaContext);
+  options = addMetaToOptions(options, metaContext);
+  
+      return useMutation((body: Types.User) => Client.auth(body), {...options, mutationKey: key});
+}

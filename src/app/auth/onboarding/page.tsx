@@ -1,10 +1,11 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import {
 	Alert,
 	Box,
 	Button,
+	Card,
 	FormControlLabel,
 	Step,
 	StepLabel,
@@ -15,22 +16,22 @@ import { Stack } from '@mui/system'
 
 import Breadcrumb from '@/app/layout/shared/breadcrumb/Breadcrumb'
 
-import PageContainer from '../../container/PageContainer'
-import ParentCard from '../../shared/ParentCard'
-import CustomCheckbox from '../theme-elements/CustomCheckbox'
-import CustomFormLabel from '../theme-elements/CustomFormLabel'
-import CustomTextField from '../theme-elements/CustomTextField'
+import PageContainer from '../../components/container/PageContainer'
+import CustomCheckbox from '../../components/forms/theme-elements/CustomCheckbox'
+import CustomFormLabel from '../../components/forms/theme-elements/CustomFormLabel'
+import CustomTextField from '../../components/forms/theme-elements/CustomTextField'
+import ParentCard from '../../components/shared/ParentCard'
 
 const steps = ['Account', 'Profile', 'Finish']
 
 // eslint-disable-next-line max-lines-per-function
 const FormWizard = () => {
-	const [activeStep, setActiveStep] = React.useState(0)
-	const [skipped, setSkipped] = React.useState(new Set())
+	const [activeStep, setActiveStep] = useState<number>(0)
+	const [skipped, setSkipped] = useState<Set<unknown>>(new Set())
 
-	const isStepOptional = (step: any) => step === 1
+	const isStepOptional = (step: number) => step === 1
 
-	const isStepSkipped = (step: any) => skipped.has(step)
+	const isStepSkipped = (step: number) => skipped.has(step)
 
 	const handleNext = () => {
 		let newSkipped = skipped
@@ -63,8 +64,7 @@ const FormWizard = () => {
 		})
 	}
 
-	// eslint-disable-next-line consistent-return
-	const handleSteps = (step: any) => {
+	const handleSteps = (step: number) => {
 		switch (step) {
 			case 0:
 				return (
@@ -136,84 +136,95 @@ const FormWizard = () => {
 
 	return (
 		<PageContainer title="Form Wizard" description="this is Form Wizard">
-			<Breadcrumb title="Form Wizard" subtitle="this is Form Wizard page" />
-			<ParentCard title="Form Wizard">
-				<Box width="100%">
-					<Stepper activeStep={activeStep}>
-						{steps.map((label, index) => {
-							const stepProps: { completed?: boolean } = {}
-							const labelProps: {
-								optional?: React.ReactNode
-							} = {}
-							if (isStepOptional(index)) {
-								labelProps.optional = (
-									<Typography variant="caption">Optional</Typography>
+			<Card
+				elevation={9}
+				sx={{
+					p: 4,
+					zIndex: 1,
+					width: '100%',
+					maxWidth: '1000px',
+					margin: 'auto',
+				}}
+			>
+				<Breadcrumb title="Form Wizard" subtitle="this is Form Wizard page" />
+				<ParentCard title="Form Wizard">
+					<Box width="100%">
+						<Stepper activeStep={activeStep}>
+							{steps.map((label, index) => {
+								const stepProps: { completed?: boolean } = {}
+								const labelProps: {
+									optional?: React.ReactNode
+								} = {}
+								if (isStepOptional(index)) {
+									labelProps.optional = (
+										<Typography variant="caption">Optional</Typography>
+									)
+								}
+								if (isStepSkipped(index)) {
+									stepProps.completed = false
+								}
+
+								return (
+									<Step key={label} {...stepProps}>
+										<StepLabel {...labelProps}>{label}</StepLabel>
+									</Step>
 								)
-							}
-							if (isStepSkipped(index)) {
-								stepProps.completed = false
-							}
+							})}
+						</Stepper>
+						{activeStep === steps.length ? (
+							<>
+								<Stack spacing={2} mt={3}>
+									<Alert severity="success">
+										All steps completed - you&apos;re finished
+									</Alert>
 
-							return (
-								<Step key={label} {...stepProps}>
-									<StepLabel {...labelProps}>{label}</StepLabel>
-								</Step>
-							)
-						})}
-					</Stepper>
-					{activeStep === steps.length ? (
-						<>
-							<Stack spacing={2} mt={3}>
-								<Alert severity="success">
-									All steps completed - you&apos;re finished
-								</Alert>
+									<Box textAlign="right">
+										<Button
+											onClick={handleReset}
+											variant="contained"
+											color="error"
+										>
+											Reset
+										</Button>
+									</Box>
+								</Stack>
+							</>
+						) : (
+							<>
+								<Box>{handleSteps(activeStep)}</Box>
 
-								<Box textAlign="right">
+								<Box display="flex" flexDirection="row" mt={3}>
 									<Button
-										onClick={handleReset}
+										color="inherit"
 										variant="contained"
-										color="error"
+										disabled={activeStep === 0}
+										onClick={handleBack}
+										sx={{ mr: 1 }}
 									>
-										Reset
+										Back
+									</Button>
+									<Box flex="1 1 auto" />
+									{isStepOptional(activeStep) && (
+										<Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
+											Skip
+										</Button>
+									)}
+
+									<Button
+										onClick={handleNext}
+										variant="contained"
+										color={
+											activeStep === steps.length - 1 ? 'success' : 'secondary'
+										}
+									>
+										{activeStep === steps.length - 1 ? 'Finish' : 'Next'}
 									</Button>
 								</Box>
-							</Stack>
-						</>
-					) : (
-						<>
-							<Box>{handleSteps(activeStep)}</Box>
-
-							<Box display="flex" flexDirection="row" mt={3}>
-								<Button
-									color="inherit"
-									variant="contained"
-									disabled={activeStep === 0}
-									onClick={handleBack}
-									sx={{ mr: 1 }}
-								>
-									Back
-								</Button>
-								<Box flex="1 1 auto" />
-								{isStepOptional(activeStep) && (
-									<Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-										Skip
-									</Button>
-								)}
-
-								<Button
-									onClick={handleNext}
-									variant="contained"
-									color={
-										activeStep === steps.length - 1 ? 'success' : 'secondary'
-									}
-								>
-									{activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-								</Button>
-							</Box>
-						</>
-					)}
-				</Box>
-			</ParentCard>
+							</>
+						)}
+					</Box>
+				</ParentCard>
+			</Card>
 		</PageContainer>
 	)
 }

@@ -114,6 +114,74 @@ export interface IUserResponse {
 
     [key: string]: any;
 }
+
+export class UserAuthResponse implements IUserAuthResponse {
+    userSub!: string;
+    accessToken!: string;
+    expiresIn!: string;
+    idToken!: string;
+    refreshToken!: string;
+    tokenType!: string;
+
+    [key: string]: any;
+
+    constructor(data?: IUserAuthResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            for (var property in _data) {
+                if (_data.hasOwnProperty(property))
+                    this[property] = _data[property];
+            }
+            this.userSub = _data["UserSub"];
+            this.accessToken = _data["AccessToken"];
+            this.expiresIn = _data["ExpiresIn"];
+            this.idToken = _data["IdToken"];
+            this.refreshToken = _data["RefreshToken"];
+            this.tokenType = _data["TokenType"];
+        }
+    }
+
+    static fromJS(data: any): UserAuthResponse {
+        data = typeof data === 'object' ? data : {};
+        let result = new UserAuthResponse();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        for (var property in this) {
+            if (this.hasOwnProperty(property))
+                data[property] = this[property];
+        }
+        data["UserSub"] = this.userSub;
+        data["AccessToken"] = this.accessToken;
+        data["ExpiresIn"] = this.expiresIn;
+        data["IdToken"] = this.idToken;
+        data["RefreshToken"] = this.refreshToken;
+        data["TokenType"] = this.tokenType;
+        return data;
+    }
+}
+
+export interface IUserAuthResponse {
+    userSub: string;
+    accessToken: string;
+    expiresIn: string;
+    idToken: string;
+    refreshToken: string;
+    tokenType: string;
+
+    [key: string]: any;
+}
 //-----/CustomTypes.File-----
 
 export class ApiException extends Error {

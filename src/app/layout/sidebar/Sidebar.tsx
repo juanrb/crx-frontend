@@ -13,6 +13,7 @@ import Logo from '../shared/logo/Logo'
 import { Profile } from './SidebarProfile/Profile'
 import SidebarItems from './SidebarItems'
 
+// eslint-disable-next-line max-lines-per-function
 const Sidebar = () => {
 	const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up('lg'))
 	const customizer = useSelector((state: AppState) => state.customizer)
