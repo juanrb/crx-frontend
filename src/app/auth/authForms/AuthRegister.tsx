@@ -35,7 +35,7 @@ const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
 				</Typography>
 			) : null}
 
-			{subtext}
+			{/* {subtext}
 			<AuthSocialButtons title="Sign up with" />
 
 			<Box mt={3}>
@@ -51,11 +51,11 @@ const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
 						or sign up with
 					</Typography>
 				</Divider>
-			</Box>
+			</Box> */}
 
 			<Box>
 				<Stack mb={3}>
-					<CustomFormLabel htmlFor="name">Name</CustomFormLabel>
+					<CustomFormLabel htmlFor="name">Full Name</CustomFormLabel>
 					<CustomTextField id="name" variant="outlined" fullWidth />
 					<CustomFormLabel htmlFor="email">Email Address</CustomFormLabel>
 					<CustomTextField

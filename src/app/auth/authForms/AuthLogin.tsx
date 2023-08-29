@@ -39,7 +39,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
 				</Typography>
 			) : null}
 
-			{subtext}
+			{/* {subtext}
 
 			<AuthSocialButtons title="Sign in with" />
 			<Box mt={3}>
@@ -55,7 +55,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
 						or sign in with
 					</Typography>
 				</Divider>
-			</Box>
+			</Box> */}
 
 			<Stack>
 				<Box>
@@ -88,10 +88,10 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
 					my={2}
 				>
 					<FormGroup>
-						<FormControlLabel
+						{/* <FormControlLabel
 							control={<CustomCheckbox defaultChecked />}
 							label="Remeber this Device"
-						/>
+						/> */}
 					</FormGroup>
 					<Typography
 						component={Link}
