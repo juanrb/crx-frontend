@@ -136,8 +136,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
 					variant="contained"
 					size="large"
 					fullWidth
-					// component={Link}
-					// href="/"
+					disabled={!formik.isValid}
 					type="submit"
 				>
 					Sign In

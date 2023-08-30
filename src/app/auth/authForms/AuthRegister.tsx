@@ -117,6 +117,7 @@ const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
 					size="large"
 					fullWidth
 					type="submit"
+					disabled={!formik.isValid}
 					// component={Link}
 					// href="/auth/auth1/login"
 				>
