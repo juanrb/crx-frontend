@@ -26,7 +26,7 @@ const BCrumb = [
 		title: 'Home',
 	},
 	{
-		title: 'Account Setting',
+		title: 'Settings',
 	},
 ]
 
@@ -67,12 +67,9 @@ const AccountSetting = () => {
 	}
 
 	return (
-		<PageContainer
-			title="Account Setting"
-			description="this is Account Setting"
-		>
+		<PageContainer title="Setting" description="this is Setting">
 			{/* breadcrumb */}
-			<Breadcrumb title="Account Setting" items={BCrumb} />
+			<Breadcrumb title="Settings" items={BCrumb} />
 			{/* end breadcrumb */}
 
 			<Grid container spacing={3}>
