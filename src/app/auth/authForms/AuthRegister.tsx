@@ -1,6 +1,9 @@
-import { useCallback, useState } from 'react'
 import { Box, Button, Divider, Typography } from '@mui/material'
 import { Stack } from '@mui/system'
+import { useFormik } from 'formik'
+import { useRouter } from 'next/navigation'
+import * as yup from 'yup'
+import YupPassword from 'yup-password'
 
 import { User } from '@/api/api-client'
 import { useCreateMutation } from '@/api/api-client/CognitoControllerQuery'
@@ -10,25 +13,38 @@ import CustomTextField from '@/app/components/forms/theme-elements/CustomTextFie
 
 import AuthSocialButtons from './AuthSocialButtons'
 
-const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
-	const createUserQuery = useCreateMutation()
-	const [username, setUsername] = useState<string>('')
-	const [password, setPassword] = useState<string>('')
+YupPassword(yup)
+const validationSchema = yup.object({
+	name: yup.string().required('Name is required'),
+	email: yup
+		.string()
+		.email('Enter a valid email')
+		.required('Email is required'),
+	password: yup.string().password().required('Password is required'),
+})
 
-	const handleRegister = useCallback(() => {
-		createUserQuery
-			.mutateAsync(
-				new User({
-					email: username,
-					password,
-				})
-			)
-			.then((res) => console.log('response', res))
-			.catch((err) => console.log('error', err))
-	}, [createUserQuery, password, username])
+// eslint-disable-next-line max-lines-per-function
+const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
+	const router = useRouter()
+	const createUserQuery = useCreateMutation()
+	const formik = useFormik({
+		initialValues: {
+			name: '',
+			email: '',
+			password: '',
+		},
+		validationSchema: validationSchema,
+		onSubmit: (values) => {
+			console.log(values)
+			createUserQuery
+				.mutateAsync(new User({ ...values }))
+				.then((res) => router.push('/auth/onboarding'))
+				.catch((err) => console.log('error', err))
+		},
+	})
 
 	return (
-		<>
+		<form onSubmit={formik.handleSubmit}>
 			{title ? (
 				<Typography fontWeight="700" variant="h3" mb={1}>
 					{title}
@@ -55,41 +71,60 @@ const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
 
 			<Box>
 				<Stack mb={3}>
-					<CustomFormLabel htmlFor="name">Full Name</CustomFormLabel>
-					<CustomTextField id="name" variant="outlined" fullWidth />
-					<CustomFormLabel htmlFor="email">Email Address</CustomFormLabel>
-					<CustomTextField
-						id="email"
-						variant="outlined"
-						fullWidth
-						onChange={(email: React.ChangeEvent<HTMLInputElement>) =>
-							setUsername(email.target.value)
-						}
-					/>
-					<CustomFormLabel htmlFor="password">Password</CustomFormLabel>
-					<CustomTextField
-						id="password"
-						variant="outlined"
-						fullWidth
-						onChange={(password: React.ChangeEvent<HTMLInputElement>) =>
-							setPassword(password.target.value)
-						}
-					/>
+					<Box>
+						<CustomFormLabel htmlFor="name">Full Name</CustomFormLabel>
+						<CustomTextField
+							id="name"
+							variant="outlined"
+							fullWidth
+							onChange={formik.handleChange}
+							onBlur={formik.handleBlur}
+							value={formik.values.name}
+							error={formik.touched.name && Boolean(formik.errors.name)}
+							helperText={formik.touched.name && formik.errors.name}
+						/>
+					</Box>
+					<Box>
+						<CustomFormLabel htmlFor="email">Email Address</CustomFormLabel>
+						<CustomTextField
+							id="email"
+							variant="outlined"
+							fullWidth
+							onChange={formik.handleChange}
+							onBlur={formik.handleBlur}
+							value={formik.values.email}
+							error={formik.touched.email && Boolean(formik.errors.email)}
+							helperText={formik.touched.email && formik.errors.email}
+						/>
+					</Box>
+					<Box>
+						<CustomFormLabel htmlFor="password">Password</CustomFormLabel>
+						<CustomTextField
+							id="password"
+							variant="outlined"
+							fullWidth
+							onChange={formik.handleChange}
+							onBlur={formik.handleBlur}
+							value={formik.values.password}
+							error={formik.touched.password && Boolean(formik.errors.password)}
+							helperText={formik.touched.password && formik.errors.password}
+						/>
+					</Box>
 				</Stack>
 				<Button
 					color="primary"
 					variant="contained"
 					size="large"
 					fullWidth
+					type="submit"
 					// component={Link}
 					// href="/auth/auth1/login"
-					onClick={handleRegister}
 				>
 					Sign Up
 				</Button>
 			</Box>
 			{subtitle}
-		</>
+		</form>
 	)
 }
 

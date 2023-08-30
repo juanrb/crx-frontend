@@ -1,4 +1,3 @@
-import { useCallback, useState } from 'react'
 import {
 	Box,
 	Button,
@@ -8,7 +7,10 @@ import {
 	Stack,
 	Typography,
 } from '@mui/material'
+import { useFormik } from 'formik'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import * as yup from 'yup'
 
 import { User } from '@/api/api-client'
 import { useAuthMutation } from '@/api/api-client/CognitoControllerQuery'
@@ -19,20 +21,38 @@ import CustomTextField from '@/app/components/forms/theme-elements/CustomTextFie
 
 import AuthSocialButtons from './AuthSocialButtons'
 
+const validationSchema = yup.object({
+	email: yup
+		.string()
+		.email('Enter a valid email')
+		.required('Email is required'),
+	password: yup
+		.string()
+		.min(8, 'Password should be of minimum 8 characters length')
+		.required('Password is required'),
+})
+
 // eslint-disable-next-line max-lines-per-function
 const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
+	const router = useRouter()
 	const loginQuery = useAuthMutation()
-	const [username, setUsername] = useState<string>('')
-	const [password, setPassword] = useState<string>('')
+	const formik = useFormik({
+		initialValues: {
+			email: '',
+			password: '',
+		},
+		validationSchema: validationSchema,
+		onSubmit: (values) => {
+			console.log(values)
+			loginQuery
+				.mutateAsync(new User({ ...values }))
+				.then((res) => router.push('/'))
+				.catch((err) => console.log('error', err))
+		},
+	})
 
-	const handleLogin = useCallback(() => {
-		loginQuery
-			.mutateAsync(new User({ email: username, password }))
-			.then((res) => console.log('response', res))
-			.catch((err) => console.log('error', err))
-	}, [loginQuery, password, username])
 	return (
-		<>
+		<form onSubmit={formik.handleSubmit}>
 			{title ? (
 				<Typography fontWeight="700" variant="h3" mb={1}>
 					{title}
@@ -59,14 +79,16 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
 
 			<Stack>
 				<Box>
-					<CustomFormLabel htmlFor="username">Username</CustomFormLabel>
+					<CustomFormLabel htmlFor="email">Email</CustomFormLabel>
 					<CustomTextField
-						id="username"
+						id="email"
 						variant="outlined"
 						fullWidth
-						onChange={(email: React.ChangeEvent<HTMLInputElement>) =>
-							setUsername(email.target.value)
-						}
+						onChange={formik.handleChange}
+						onBlur={formik.handleBlur}
+						value={formik.values.email}
+						error={formik.touched.email && Boolean(formik.errors.email)}
+						helperText={formik.touched.email && formik.errors.email}
 					/>
 				</Box>
 				<Box>
@@ -76,9 +98,11 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
 						type="password"
 						variant="outlined"
 						fullWidth
-						onChange={(password: React.ChangeEvent<HTMLInputElement>) =>
-							setPassword(password.target.value)
-						}
+						onChange={formik.handleChange}
+						onBlur={formik.handleBlur}
+						value={formik.values.password}
+						error={formik.touched.password && Boolean(formik.errors.password)}
+						helperText={formik.touched.password && formik.errors.password}
 					/>
 				</Box>
 				<Stack
@@ -115,13 +139,12 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
 					// component={Link}
 					// href="/"
 					type="submit"
-					onClick={handleLogin}
 				>
 					Sign In
 				</Button>
 			</Box>
 			{subtitle}
-		</>
+		</form>
 	)
 }
 

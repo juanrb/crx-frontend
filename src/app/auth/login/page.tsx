@@ -66,7 +66,7 @@ export default function Login2() {
 										</Typography>
 										<Typography
 											component={Link}
-											href="/auth/auth2/register"
+											href="/auth/register"
 											fontWeight="500"
 											sx={{
 												textDecoration: 'none',
