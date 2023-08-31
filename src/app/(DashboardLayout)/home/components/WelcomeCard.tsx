@@ -50,18 +50,18 @@ const WelcomeCard = () => {
 							>
 								<Box>
 									<Typography variant="h2" whiteSpace="nowrap">
-										$2,340{' '}
+										340{' '}
 										<span>
 											<IconArrowUpRight width={18} color="#39B69A" />
 										</span>
 									</Typography>
 									<Typography variant="subtitle1" whiteSpace="nowrap">
-										Today’s Sales
+										Current Score
 									</Typography>
 								</Box>
 								<Box>
 									<Typography variant="h2" whiteSpace="nowrap">
-										35%
+										5%
 										<span>
 											<IconArrowUpRight width={18} color="#39B69A" />
 										</span>

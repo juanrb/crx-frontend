@@ -15,7 +15,7 @@ import DashboardCard from '@/app/components/shared/DashboardCard'
 
 const RecentTransactions = () => {
 	return (
-		<DashboardCard title="Recent Transactions">
+		<DashboardCard title="Recent Activity">
 			<>
 				<Timeline
 					className="theme-timeline"
@@ -32,59 +32,61 @@ const RecentTransactions = () => {
 					}}
 				>
 					<TimelineItem>
-						<TimelineOppositeContent>09:30 am</TimelineOppositeContent>
+						<TimelineOppositeContent>Aug 23</TimelineOppositeContent>
 						<TimelineSeparator>
 							<TimelineDot color="primary" variant="outlined" />
 							<TimelineConnector />
 						</TimelineSeparator>
 						<TimelineContent>
-							Payment received from John Doe of $385.90
+							CRB - Ongoing Rent Reporting - Approved (1/3)
 						</TimelineContent>
 					</TimelineItem>
 					<TimelineItem>
-						<TimelineOppositeContent>10:00 am</TimelineOppositeContent>
+						<TimelineOppositeContent>Jul 17</TimelineOppositeContent>
 						<TimelineSeparator>
 							<TimelineDot color="secondary" variant="outlined" />
 							<TimelineConnector />
 						</TimelineSeparator>
 						<TimelineContent>
-							<Typography fontWeight="600">New sale recorded</Typography>{' '}
+							<Typography fontWeight="600">CRC - Signup</Typography>{' '}
 							<Link href="/" underline="none">
 								#ML-3467
 							</Link>
 						</TimelineContent>
 					</TimelineItem>
 					<TimelineItem>
-						<TimelineOppositeContent>12:00 am</TimelineOppositeContent>
+						<TimelineOppositeContent>Apr 30</TimelineOppositeContent>
 						<TimelineSeparator>
 							<TimelineDot color="success" variant="outlined" />
 							<TimelineConnector />
 						</TimelineSeparator>
 						<TimelineContent>
-							Payment was made of $64.95 to Michael
+							Referrals - New Referral - Approved
 						</TimelineContent>
 					</TimelineItem>
 					<TimelineItem>
-						<TimelineOppositeContent>09:30 am</TimelineOppositeContent>
+						<TimelineOppositeContent>Mar 2</TimelineOppositeContent>
 						<TimelineSeparator>
 							<TimelineDot color="warning" variant="outlined" />
 							<TimelineConnector />
 						</TimelineSeparator>
 						<TimelineContent>
-							<Typography fontWeight="600">New sale recorded</Typography>{' '}
+							<Typography fontWeight="600">Bond card received</Typography>{' '}
 							<Link href="/" underline="none">
 								#ML-3467
 							</Link>
 						</TimelineContent>
 					</TimelineItem>
 					<TimelineItem>
-						<TimelineOppositeContent>09:30 am</TimelineOppositeContent>
+						<TimelineOppositeContent>Feb 20</TimelineOppositeContent>
 						<TimelineSeparator>
 							<TimelineDot color="error" variant="outlined" />
 							<TimelineConnector />
 						</TimelineSeparator>
 						<TimelineContent>
-							<Typography fontWeight="600">New arrival recorded</Typography>{' '}
+							<Typography fontWeight="600">
+								CRB - Past Rent Reporting - Sent
+							</Typography>{' '}
 							<Link href="/" underline="none">
 								#ML-3467
 							</Link>

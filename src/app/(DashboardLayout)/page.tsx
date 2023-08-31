@@ -17,7 +17,7 @@ const Dashboard = () => {
 			<Box>
 				<Grid container spacing={3}>
 					{/* column */}
-					<Grid item lg={12}>
+					<Grid item xs={12}>
 						<WelcomeCard />
 					</Grid>
 					{/* column */}

@@ -260,14 +260,14 @@ const ProductPerformances = () => {
 									/>
 									<Box>
 										<Typography variant="subtitle2" fontWeight={600}>
-											Gaming Console
+											Ongoing Rent Reporting
 										</Typography>
 										<Typography
 											color="textSecondary"
 											fontSize="12px"
 											variant="subtitle2"
 										>
-											Electronics
+											CRB
 										</Typography>
 									</Box>
 								</Stack>
@@ -318,14 +318,14 @@ const ProductPerformances = () => {
 									/>
 									<Box>
 										<Typography variant="subtitle2" fontWeight={600}>
-											Leather Purse
+											Past Rent Reporting
 										</Typography>
 										<Typography
 											color="textSecondary"
 											fontSize="12px"
 											variant="subtitle2"
 										>
-											Fashion
+											CRB
 										</Typography>
 									</Box>
 								</Stack>
@@ -376,14 +376,14 @@ const ProductPerformances = () => {
 									/>
 									<Box>
 										<Typography variant="subtitle2" fontWeight={600}>
-											Red Velvate Dress
+											Bond Credit Card
 										</Typography>
 										<Typography
 											color="textSecondary"
 											fontSize="12px"
 											variant="subtitle2"
 										>
-											Womens Fashion
+											Bond
 										</Typography>
 									</Box>
 								</Stack>
@@ -434,14 +434,14 @@ const ProductPerformances = () => {
 									/>
 									<Box>
 										<Typography variant="subtitle2" fontWeight={600}>
-											Headphone Boat
+											Some CRC Improvement
 										</Typography>
 										<Typography
 											color="textSecondary"
 											fontSize="12px"
 											variant="subtitle2"
 										>
-											Electronics
+											CRC
 										</Typography>
 									</Box>
 								</Stack>
